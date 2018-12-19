@@ -1,6 +1,97 @@
 @extends('layouts.app')
 
 @section('content')
+@if (Auth::user()->ocupation == "Administrador")
+<div class="container">
+    <div class="row justify-content-center">
+    	
+        <div class="col-md-4">
+            <div class="card">
+            	<a href="{{ route('almacen.index') }}">
+	                <div class="card-header">
+	                	ALMACÉN
+	                </div>
+	                <div class="card-body">
+	                    <img src="{{ asset('imagenes/Almacen.jpg') }}" width="100%" style="height: 218px;">
+	                </div>
+            	</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+            	<a href="">
+                	<div class="card-header">
+                		VENTAS
+            		</div>
+                	<div class="card-body">
+                    	<img src="{{ asset('imagenes/Ventas.jpg') }}" width="100%" style="height: 218px;">
+                	</div>
+            	</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+            	<a href="">
+	                <div class="card-header">
+	                	COMPRAS
+	            	</div>
+	                <div class="card-body">
+	                    <img src="{{ asset('imagenes/Compras.jpg') }}" width="100%" style="height: 218px;">
+	                </div>
+	            </a>
+            </div>
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-4">
+            <div class="card">
+            	<a href="">
+	                <div class="card-header">
+	                	PROVEEDORES
+	                </div>
+	                <div class="card-body">
+	                    <img src="{{ asset('imagenes/Proveedor.jpg') }}" width="100%" style="height: 218px;">
+	                </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+            	<a href="">
+	                <div class="card-header">
+	                	PRODUCTOS
+	            	</div>
+	                <div class="card-body">
+	                    <img src="{{ asset('imagenes/Productos.jpg') }}" width="100%" style="height: 218px;">
+	                </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+            	<a href="{{ route('register') }}">
+	                <div class="card-header">
+	                	ADMINISTRACIÓN
+	            	</div>
+	                <div class="card-body">
+	                    <img src="{{ asset('imagenes/Administracion.jpg') }}" width="100%" style="height: 218px;">
+	                </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+@elseif(Auth::user()->ocupation == "Cajero")
 <div class="container">
     <div class="row justify-content-center">
     	
@@ -10,11 +101,9 @@
                 	OPCIÓN 1
                 </div>
                 <div class="card-body">
-                    @if (Auth::user())
-                        <div class="alert alert-success" role="alert">
-                            {{ Auth::user() }}
-                        </div>
-                    @endif
+                    <div class="alert alert-success" role="alert">
+                        {{ Auth::user() }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,7 +177,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                	OPCIÓN 6
+                	OPCÍÓN 6
             	</div>
                 <div class="card-body">
                     @if (session('status'))
@@ -102,4 +191,6 @@
 
     </div>
 </div>
+@endif
+
 @endsection

@@ -19,6 +19,11 @@ Route::get('/', function () {
 	}
 });
 
+Route::get('/home', 'HomeController@index')->name('home');
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/register', 'Auth\RegisterController@index')->name('register');
+Route::resource('almacen', 'AlmacenController');
+
+
