@@ -24,6 +24,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/register', 'Auth\RegisterController@index')->name('register');
+
 Route::resource('almacen', 'AlmacenController');
+
+Route::resource('proveedor', 'ProveedorController');
 
 

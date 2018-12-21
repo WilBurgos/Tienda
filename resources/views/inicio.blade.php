@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-@if (Auth::user()->ocupation == "Administrador")
+@if (Auth::user()->ocupation == "ADMINISTRADOR")
 <div class="container">
     <div class="row justify-content-center">
     	
@@ -52,7 +52,7 @@
 
         <div class="col-md-4">
             <div class="card">
-            	<a href="">
+            	<a href="{{ route('proveedor.index') }}">
 	                <div class="card-header">
 	                	PROVEEDORES
 	                </div>
@@ -91,7 +91,7 @@
 
     </div>
 </div>
-@elseif(Auth::user()->ocupation == "Cajero")
+@elseif(Auth::user()->ocupation == "CAJERO")
 <div class="container">
     <div class="row justify-content-center">
     	
