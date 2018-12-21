@@ -27,6 +27,7 @@ Route::get('/register', 'Auth\RegisterController@index')->name('register');
 
 Route::resource('almacen', 'AlmacenController');
 
+Route::get('proveedor/get_proveedores','ProveedorController@json_proveedores')->name('prov.get_provs');
 Route::resource('proveedor', 'ProveedorController');
 
 

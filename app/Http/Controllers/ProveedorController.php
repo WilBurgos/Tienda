@@ -19,6 +19,12 @@ class ProveedorController extends Controller
         return view('proveedor');
     }
 
+    public function json_proveedores()
+    {
+        $proveedores = proveedor::get();
+        return response()->json($proveedores);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
