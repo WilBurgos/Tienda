@@ -15,6 +15,8 @@
     <script src="{{ asset('plugins/Bootstrap/js/popper.min.js') }}"></script>
     <script src="{{ asset('plugins/Bootstrap/js/bootstrap.min.js') }}"></script>
 
+    <script src="{{ asset('plugins/Font_awesome/js/all.js') }}"></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -22,6 +24,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/Bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!--<link href="{{ asset('plugins/Font_awesome/css/all.css') }}" rel="stylesheet">-->
+    <link href="{{ asset('plugins/BootstrapTable/css/bootstrap-table.min.css') }}" rel="stylesheet">
 
     @yield('css')
 </head>
@@ -85,5 +90,8 @@
     </div>
 
     @yield('scripts')
+    <script src="{{ asset('plugins/BootstrapTable/js/bootstrap-table.min.js') }}"></script>
+    <script src="{{ asset('plugins/BootstrapTable/js/bootstrap-table-es-MX.js') }}"></script>
+
 </body>
 </html>
