@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\proveedor;
-use App\producto;
+use App\Http\Requests\proveedorRequest;
+
+use App\Proveedor;
+use App\Producto;
 
 class ProveedorController extends Controller
 {
@@ -21,7 +23,7 @@ class ProveedorController extends Controller
 
     public function json_proveedores()
     {
-        $proveedores = proveedor::get();
+        $proveedores = Proveedor::get();
         return response()->json($proveedores);
     }
 
@@ -41,9 +43,14 @@ class ProveedorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(proveedorRequest $request)
     {
-        //
+        $newProveedor = Proveedor::create([
+            'compania' => $request->input('compania'),
+            'estatus' => 'ACTIVO'
+        ]);
+
+        return response()->json($newProveedor);
     }
 
     /**

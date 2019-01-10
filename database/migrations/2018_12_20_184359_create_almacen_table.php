@@ -15,13 +15,13 @@ class CreateAlmacenTable extends Migration
     {
         Schema::create('almacen', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idProducto')->unsigned()->nullable();
-            $table->integer('Cantidad')->nullable();
-            $table->integer('PrecioCompra')->nullable();
-            $table->datetime('FechaCompra')->nullable();
-            $table->integer('PrecioVenta')->nullable();
-            $table->datetime('FechaSalida');
-            $table->string('Observaciones', 255);
+            $table->integer('idProducto')->unsigned();
+            $table->integer('cantidad');
+            $table->integer('precioCompra');
+            $table->datetime('fechaCompra');
+            $table->integer('precioVenta');
+            $table->datetime('fechaSalida');
+            $table->string('observaciones', 255);
 
             $table->foreign('idProducto')->references('id')->on('producto');
             $table->timestamps();

@@ -15,9 +15,9 @@ class CreateProductoTable extends Migration
     {
         Schema::create('producto', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idProveedor')->unsigned()->nullable();
-            $table->string('NombreProducto', 255)->nullable();
-            $table->enum('Estatus', ['ACTIVO','INACTIVO'])->default('ACTIVO');
+            $table->integer('idProveedor')->unsigned();
+            $table->string('nombreProducto', 255);
+            $table->enum('estatus', ['ACTIVO','INACTIVO'])->default('ACTIVO');
 
             $table->foreign('idProveedor')->references('id')->on('proveedor');
             $table->timestamps();

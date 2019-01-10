@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Almacen extends Model
 {
     protected $table = 'almacen';
-    protected $filliable = [
+    protected $fillable = [
     	'idProducto',
     	'Cantidad',
     	'PrecioCompra',

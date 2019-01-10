@@ -26,7 +26,7 @@
     <link href="{{ asset('plugins/Bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!--<link href="{{ asset('plugins/Font_awesome/css/all.css') }}" rel="stylesheet">-->
-    <link href="{{ asset('plugins/BootstrapTable/css/bootstrap-table.min.css') }}" rel="stylesheet">
+    
 
     @yield('css')
 </head>
@@ -90,8 +90,13 @@
     </div>
 
     @yield('scripts')
-    <script src="{{ asset('plugins/BootstrapTable/js/bootstrap-table.min.js') }}"></script>
-    <script src="{{ asset('plugins/BootstrapTable/js/bootstrap-table-es-MX.js') }}"></script>
+    <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    </script>
 
 </body>
 </html>
