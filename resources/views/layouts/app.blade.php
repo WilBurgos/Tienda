@@ -91,12 +91,54 @@
 
     @yield('scripts')
     <script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    </script>
+        var tituloModal         = $('#modal-titulo');
+	    var bodyModal           = $('#modal-body');
+        var footerModal         = $('#modal-footer');
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
+        $("body").on('change', '.mayuscula', function(field){
+        //$(".mayuscula").keyup(function() {
+            $(this).val($(this).val().toUpperCase());
+            //field.value = field.value.toUpperCase()
+        });
+
+        $("body").on('keypress', '.soloNumeros', function(event){
+        var key = window.event.keyCode;
+            if (key < 48 || key > 57) {
+                return false;
+            }
+        });
+        
+        var limpiarModal = function(){
+            tituloModal.empty()
+            //bodyModal.empty()
+            //footerModal.empty()
+        };
+    
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('form-control');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('focusout', function(event) {
+                        if( $(form).val() == '' ){
+                            $( '#'+$(form).attr("id") ).removeClass('is-valid');
+                            $( '#'+$(form).attr("id") ).addClass('is-invalid');
+                            $( '#error_'+$(form).attr("id") ).show();
+                        }else{
+                            $( '#'+$(form).attr("id") ).removeClass('is-invalid');
+                            $( '#'+$(form).attr("id") ).addClass('is-valid');
+                            $( '#error_'+$(form).attr("id") ).hide();
+                        }
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </body>
 </html>

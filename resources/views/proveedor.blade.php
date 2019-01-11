@@ -2,8 +2,8 @@
 
 @section('css')
 <link href="{{ asset('plugins/BootstrapTable/css/bootstrap-table.min.css') }}" rel="stylesheet">
-<link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css"
-    rel="stylesheet" type="text/css" />
+<!--<link href="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/theme-default.min.css"
+    rel="stylesheet" type="text/css" />-->
 
 
 @endsection
@@ -41,19 +41,17 @@
 @section('scripts')
 <script src="{{ asset('plugins/BootstrapTable/js/bootstrap-table.min.js') }}"></script>
 <script src="{{ asset('plugins/BootstrapTable/js/bootstrap-table-es-MX.js') }}"></script>
-<script src="{{ asset('plugins/jQueryFormValidator/js/jquery.form-validator.min.js') }}"></script>
+<!--<script src="{{ asset('plugins/jQueryFormValidator/js/lang/es.js') }}"></script>
+<script src="{{ asset('plugins/jQueryFormValidator/js/jquery.form-validator.min.js') }}"></script>-->
 
 <script type="text/javascript">
 	$(document).ready(function () {
         var table               = $('#tableAlmacen');
+        var RouteIndexProv      = "{!! route('proveedor.index') !!}";
         var RouteProveedores    = "{!! route('prov.get_provs') !!}";
         var RouteStoreProv      = "{!! route('proveedor.store') !!}";
         var modal               = $('#modalProveedor');
-        var tituloModal         = $('#modal-titulo');
-	    var bodyModal           = $('#modal-body');
-	    var footerModal         = $('#modal-footer');
-
-        var divNuevo = '<div style="position:relative; margin-top:10px; margin-bottom:10px; float:left!important;"><button class="btn btn-secondary" type="button" id="nuevoProveedor">Nuevo Proveedor</button></div>';
+        var divNuevo            = '<div style="position:relative; margin-top:10px; margin-bottom:10px; float:left!important;"><button class="btn btn-secondary" type="button" id="nuevoProveedor">Nuevo Proveedor</button></div>';
 
         $(document).ready(function(){
             table.bootstrapTable({
@@ -63,7 +61,6 @@
                 pageList: [10, 25, 50, 100],
                 rowStyle: rowStyle,
                 url: RouteProveedores,
-                //icons: {refresh: 'fa-sync-alt',},
                 columns: [{
                     field: 'id',
                     title: 'No.',       
@@ -92,9 +89,6 @@
                 case 'INACTIVO':
                     return {classes: 'table-danger'};
                     break;
-                case null:
-                    return {};
-                    break;
                 default:
                     return {};
                     break;
@@ -102,40 +96,97 @@
         }
 
         var formatTableActions = function(value, row, index){
-            edit = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Editar" id="edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;';
+            edit = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Editar Proveedor" id="edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;';
             if(row.estatus=='ACTIVO'){
-                baja = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de baja" id="baja"><i class="fa fa-arrow-down"></i></button>&nbsp;';
+                baja = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de baja" id="bajaProveedor"><i class="fa fa-arrow-down"></i></button>&nbsp;';
                 return [edit,baja].join('');
             }else{
-                alta = '<button class="btn btn-secondary btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de alta" id="alta"><i class="fa fa-arrow-up"></i></button>&nbsp;&nbsp;';
+                alta = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de alta" id="altaProveedor"><i class="fa fa-arrow-up"></i></button>&nbsp;&nbsp;';
                 return [edit,alta].join('');
             }
         }
 
         window.operateEvents = {
             'click #edit': function (e, value, row, index) {
-                //modal.modal('show');
+                e.preventDefault();
+                limpiarModal();
+                tituloModal.append('Actualizar Proveedor');
+                $('#formUpdateProv').show();
+                $('#formNewProv').hide();
+                $('#formUpdateProv').removeClass('was-validated');
+                $('.form-control').removeClass('is-valid');
+                $('.form-control').removeClass('is-invalid');
+                $('#updateProv').show();
+                $('#guardarProv').hide();
+                $('#formNewProv')[0].reset();
+                // --------------------------------------------- //
+                $('#upd-id').val(row.id);
+                $('#upd-compania').val(row.compania);
+                $('#upd-estatus').val(row.estatus);
+                modal.modal('show');
+            },
+            'click #bajaProveedor': function(e, value, row, index) {
+                e.preventDefault();
+                var dataString = {
+                    id:             row.id,
+                    compania:       row.compania,
+                    estatus:       'INACTIVO',
+                };
+                $.ajax({
+                    type: 'PUT',
+                    url: RouteIndexProv+'/'+dataString['id'],
+                    data: dataString,
+                    dataType: 'json',
+                    success: function(data){
+                        modal.modal('hide');
+                        table.bootstrapTable('refresh');
+                    },
+                    error: function(data){
+                        var errors = data.responseJSON;
+                        console.log(errors); 
+                    }
+                });
+            },
+            'click #altaProveedor': function(e, value, row, index) {
+                e.preventDefault();
+                var dataString = {
+                    id:             row.id,
+                    compania:       row.compania,
+                    estatus:       'ACTIVO',
+                };
+                $.ajax({
+                    type: 'PUT',
+                    url: RouteIndexProv+'/'+dataString['id'],
+                    data: dataString,
+                    dataType: 'json',
+                    success: function(data){
+                        modal.modal('hide');
+                        table.bootstrapTable('refresh');
+                    },
+                    error: function(data){
+                        var errors = data.responseJSON;
+                        console.log(errors); 
+                    }
+                });
             }
         };
 
         $(document).on('click','#nuevoProveedor',function(e){
+            e.preventDefault();
+            limpiarModal();
+            tituloModal.append('Nuevo Proveedor');
+            $('#formNewProv').show();
+            $('#formUpdateProv').hide();
+            $('#formNewProv').removeClass('was-validated');
+            $('.form-control').removeClass('is-valid');
+            $('.form-control').removeClass('is-invalid');
+            $('guardarProv').show();
+            $('#updateProv').hide();
+            $('#formNewProv')[0].reset();
             modal.modal('show');
         });
 
         footerModal.on('click', '#guardarProv', function(event){
-            /*'use strict';
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-            //form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            //}, false);
-            });*/
             var dataString = {
                 compania:       $('#compania').val(),
             };
@@ -151,7 +202,6 @@
                 error: function(data){
                     var errors = data.responseJSON;
                     console.log(errors);
-
                     var form = $("#formNewProv")
                     if (form[0].checkValidity() === false) {
                         event.preventDefault()
@@ -159,32 +209,47 @@
                     }
                     $.each(errors.errors, function(key, value){
                         $('#error_'+key).empty();
-                        $('#'+key).append('<div class="invalid-feedback" id="error_compania">'+value+'</div>');
+                        $('#error_'+key).addClass("invalid-feedback");
+                        $('#error_'+key).append(value);
                     });
-                    form.addClass('was-validated');
-
+                    form.addClass('was-validated'); 
                 }
-            })
+            });
+        });
+
+        footerModal.on('click', '#updateProv', function(event){
+            var dataString = {
+                id:             $('#upd-id').val(),
+                compania:       $('#upd-compania').val(),
+                estatus:        $('#upd-estatus').val()
+            };
+            $.ajax({
+                type: 'PUT',
+                url: RouteIndexProv+'/'+dataString['id'],
+                data: dataString,
+                dataType: 'json',
+                success: function(data){
+                    modal.modal('hide');
+                    table.bootstrapTable('refresh');
+                },
+                error: function(data){
+                    var errors = data.responseJSON;
+                    console.log(errors);
+                    var form = $("#formNewProv")
+                    if (form[0].checkValidity() === false) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    $.each(errors.errors, function(key, value){
+                        $('#error_upd-'+key).empty();
+                        $('#error_upd-'+key).addClass("invalid-feedback");
+                        $('#error_upd-'+key).append(value);
+                    });
+                    form.addClass('was-validated'); 
+                }
+            });
         });
     });
-
-    /*(function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();*/
 
 </script>
 @endsection
