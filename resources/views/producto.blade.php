@@ -2,6 +2,8 @@
 
 @section('css')
 <link href="{{ asset('plugins/BootstrapTable/css/bootstrap-table.min.css') }}" rel="stylesheet">
+<!--<link href="{{ asset('plugins/Select2/css/select2.min.css') }}" rel="stylesheet">
+<link href="{{ asset('plugins/Select2/css/select2-bootstrap.min.css') }}" rel="stylesheet">-->
 
 @endsection
 
@@ -17,7 +19,7 @@
                         <a href="{{ route('home') }}">BACK</a>
                     </div>
                     <div class="col-6" style="text-align: center;">
-                        PROVEEDORES
+                        PRODUCTOS
                     </div>
                     <div class="col">
                     </div>
@@ -25,9 +27,9 @@
             </div>
         </div>
     </div>
-    <table id="tableProveedor" style="text-align: center;">
+    <table id="tableProducto" style="text-align: center;">
     </table>
-    @include('modals.modalProveedor')
+    @include('modals.modalProducto')
 </div>
 @elseif(Auth::user()->ocupation == "CAJERO")
 
@@ -38,15 +40,16 @@
 @section('scripts')
 <script src="{{ asset('plugins/BootstrapTable/js/bootstrap-table.min.js') }}"></script>
 <script src="{{ asset('plugins/BootstrapTable/js/bootstrap-table-es-MX.js') }}"></script>
+<!--<script src="{{ asset('plugins/Select2/js/select2.min.js') }}"></script>-->
 
 <script type="text/javascript">
 	$(document).ready(function () {
-        var table               = $('#tableProveedor');
-        var RouteIndexProv      = "{!! route('proveedor.index') !!}";
-        var RouteProveedores    = "{!! route('prov.get_provs') !!}";
-        var RouteStoreProv      = "{!! route('proveedor.store') !!}";
-        var modal               = $('#modalProveedor');
-        var divNuevo            = '<div style="position:relative; margin-top:10px; margin-bottom:10px; float:left!important;"><button class="btn btn-secondary" type="button" id="nuevoProveedor">Nuevo Proveedor</button></div>';
+        var table               = $('#tableProducto');
+        var RouteIndexProd      = "{!! route('producto.index') !!}";
+        var RouteProductos      = "{!! route('prod.get_prods') !!}";
+        var RouteStoreProd      = "{!! route('producto.store') !!}";
+        var modal               = $('#modalProducto');
+        var divNuevo            = '<div style="position:relative; margin-top:10px; margin-bottom:10px; float:left!important;"><button class="btn btn-secondary" type="button" id="nuevoProducto">Nuevo Producto</button></div>';
 
         $(document).ready(function(){
             table.bootstrapTable({
@@ -55,25 +58,17 @@
                 showRefresh: true,
                 pageList: [10, 25, 50, 100],
                 rowStyle: rowStyle,
-                url: RouteProveedores,
+                url: RouteProductos,
                 columns: [{
                     field: 'id',
                     title: 'No.',       
                 }, {
-                    field: 'compania',
+                    field: 'idProveedor',
                     title: 'Compañía',
                     sortable: 'true',
                 }, {
-                    field: 'direccion',
-                    title: 'Dirección',
-                    sortable: 'true',
-                }, {
-                    field: 'telefono',
-                    title: 'Teléfono',
-                    sortable: 'true',
-                }, {
-                    field: 'correo',
-                    title: 'Correo',
+                    field: 'nombreProducto',
+                    title: 'Producto',
                     sortable: 'true',
                 }, {                    
                     field: 'estatus',
@@ -104,12 +99,12 @@
         }
 
         var formatTableActions = function(value, row, index){
-            edit = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Editar Proveedor" id="edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;';
+            edit = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Editar Producto" id="edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;';
             if(row.estatus=='ACTIVO'){
-                baja = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de baja" id="bajaProveedor"><i class="fa fa-arrow-down"></i></button>&nbsp;';
+                baja = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de baja" id="bajaProducto"><i class="fa fa-arrow-down"></i></button>&nbsp;';
                 return [edit,baja].join('');
             }else{
-                alta = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de alta" id="altaProveedor"><i class="fa fa-arrow-up"></i></button>&nbsp;&nbsp;';
+                alta = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de alta" id="altaProducto"><i class="fa fa-arrow-up"></i></button>&nbsp;&nbsp;';
                 return [edit,alta].join('');
             }
         }
@@ -118,37 +113,33 @@
             'click #edit': function (e, value, row, index) {
                 e.preventDefault();
                 limpiarModal();
-                tituloModal.append('Actualizar Proveedor');
-                $('#formUpdateProv').show();
-                $('#formNewProv').hide();
-                $('#formUpdateProv').removeClass('was-validated');
+                tituloModal.append('Actualizar Producto');
+                $('#formUpdateProd').show();
+                $('#formNewProd').hide();
+                $('#formUpdateProd').removeClass('was-validated');
                 $('.form-control').removeClass('is-valid');
                 $('.form-control').removeClass('is-invalid');
-                $('#updateProv').show();
-                $('#guardarProv').hide();
-                $('#formNewProv')[0].reset();
+                $('#updateProd').show();
+                $('#guardarProd').hide();
+                $('#formNewProd')[0].reset();
                 // --------------------------------------------- //
                 $('#upd-id').val(row.id);
-                $('#upd-compania').val(row.compania);
-                $('#upd-direccion').val(row.direccion);
-                $('#upd-telefono').val(row.telefono);
-                $('#upd-correo').val(row.correo);
+                $('#upd-idProducto').val(row.idProducto);
+                $('#upd-producto').val(row.producto);
                 $('#upd-estatus').val(row.estatus);
                 modal.modal('show');
             },
-            'click #bajaProveedor': function(e, value, row, index) {
+            'click #bajaProducto': function(e, value, row, index) {
                 e.preventDefault();
                 var dataString = {
                     id:             row.id,
-                    compania:       row.compania,
-                    direccion:      row.direccion,
-                    telefono:       row.telefono,
-                    correo:         row.correo,
+                    idProducto:     row.idProducto,
+                    producto:       row.producto,
                     estatus:       'INACTIVO',
                 };
                 $.ajax({
                     type: 'PUT',
-                    url: RouteIndexProv+'/'+dataString['id'],
+                    url: RouteIndexProd+'/'+dataString['id'],
                     data: dataString,
                     dataType: 'json',
                     success: function(data){
@@ -161,19 +152,17 @@
                     }
                 });
             },
-            'click #altaProveedor': function(e, value, row, index) {
+            'click #altaProducto': function(e, value, row, index) {
                 e.preventDefault();
                 var dataString = {
                     id:             row.id,
-                    compania:       row.compania,
-                    direccion:      row.direccion,
-                    telefono:       row.telefono,
-                    correo:         row.correo,
+                    idProducto:     row.idProducto,
+                    producto:       row.producto,
                     estatus:       'ACTIVO',
                 };
                 $.ajax({
                     type: 'PUT',
-                    url: RouteIndexProv+'/'+dataString['id'],
+                    url: RouteIndexProd+'/'+dataString['id'],
                     data: dataString,
                     dataType: 'json',
                     success: function(data){
@@ -188,22 +177,23 @@
             }
         };
 
-        $(document).on('click','#nuevoProveedor',function(e){
+        $(document).on('click','#nuevoProducto',function(e){
             e.preventDefault();
             limpiarModal();
-            tituloModal.append('Nuevo Proveedor');
-            $('#formNewProv').show();
-            $('#formUpdateProv').hide();
-            $('#formNewProv').removeClass('was-validated');
+            tituloModal.append('Nuevo Producto');
+            $('#formNewProd').show();
+            $('#formUpdateProd').hide();
+            $('#formNewProd').removeClass('was-validated');
             $('.form-control').removeClass('is-valid');
             $('.form-control').removeClass('is-invalid');
-            $('#guardarProv').show();
-            $('#updateProv').hide();
-            $('#formNewProv')[0].reset();
+            $('#guardarProd').show();
+            $('#updateProd').hide();
+            $('#formNewProd')[0].reset();
+            //$('.select2').select2();
             modal.modal('show');
         });
 
-        footerModal.on('click', '#guardarProv', function(event){
+        footerModal.on('click', '#guardarProd', function(event){
             var dataString = {
                 compania:       $('#compania').val(),
                 direccion:      $('#direccion').val(),

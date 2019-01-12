@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Proveedor;
+use App\Producto;
+
 class ProductoController extends Controller
 {
     /**
@@ -13,7 +16,13 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        return view('producto');
+    }
+
+    public function json_productos()
+    {
+        $productos = Producto::get();
+        return response()->json($productos);
     }
 
     /**

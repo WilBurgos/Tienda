@@ -24,14 +24,19 @@ class proveedorRequest extends FormRequest
     public function rules()
     {
         return [
-            'compania'  => 'required'
+            'compania'  => 'required',
+            'direccion' => 'required',
+            'telefono'  => 'required',
+            'correo'    => 'required'
         ];
     }
     public function attributes()
     {
         return [
-          'compania'       => 'compañía',
-
+          'compania'    => 'compañía',
+          'direccion'   => 'dirección',
+          'telefono'    => 'teléfono',
+          'correo'      => 'correo'
         ];
     }
 

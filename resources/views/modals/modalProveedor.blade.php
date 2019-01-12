@@ -16,9 +16,23 @@
                             <input type="text" class="form-control" id="compania" placeholder="Nombre de compañía" required>
                             <div id="error_compania"></div>
                         </div>
+                        <div class="col-md-8 mb-3">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" class="form-control" id="direccion" placeholder="Dirección de compañía" required>
+                            <div id="error_direccion"></div>
+                        </div>
                     </div>
                     <div class="form-row">
-                        
+                        <div class="col-md-4 mb-3">
+                            <label for="telefono">Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" placeholder="Teléfono de compañía" required>
+                            <div id="error_telefono"></div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="correo">Correo</label>
+                            <input type="text" class="form-control" id="correo" placeholder="Correo de compañía" required>
+                            <div id="error_correo"></div>
+                        </div>
                     </div>
                 </form>
                 <!-- FIN SAVE PROVEEDOR -->
@@ -35,14 +49,28 @@
                             <input type="text" class="form-control" id="upd-compania" placeholder="Nombre de compañía" required>
                             <div id="error_upd-compania"></div>
                         </div>
+                        <div class="col-md-8 mb-3">
+                            <label for="upd-direccion">Dirección</label>
+                            <input type="text" class="form-control" id="upd-direccion" placeholder="Dirección de compañía" required>
+                            <div id="error_upd-direccion"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <label for="upd-telefono">Teléfono</label>
+                            <input type="text" class="form-control" id="upd-telefono" placeholder="Teléfono de compañía" required>
+                            <div id="error_upd-telefono"></div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="upd-correo">Correo</label>
+                            <input type="text" class="form-control" id="upd-correo" placeholder="Correo de compañía" required>
+                            <div id="error_upd-correo"></div>
+                        </div>
                         <div class="col-md-4 mb-3" style="display:none;">
                             <label for="upd-estatus">Estatus</label>
                             <input type="text" class="form-control" id="upd-estatus" placeholder="Estatus de compañía" required>
                             <div id="error_upd-estatus"></div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        
                     </div>
                 </form>
                 <!-- FIN UPDATE PROVEEDOR -->

@@ -65,7 +65,7 @@
 
         <div class="col-md-4">
             <div class="card">
-            	<a href="">
+            	<a href="{{ route('producto.index') }}">
 	                <div class="card-header">
 	                	PRODUCTOS
 	            	</div>

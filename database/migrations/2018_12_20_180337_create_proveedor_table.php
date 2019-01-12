@@ -16,6 +16,9 @@ class CreateProveedorTable extends Migration
         Schema::create('proveedor', function (Blueprint $table) {
             $table->increments('id');
             $table->string('compania', 255);
+            $table->string('direccion', 255);
+            $table->string('telefono', 255);
+            $table->string('correo', 255);
             $table->enum('estatus', ['ACTIVO','INACTIVO'])->default('ACTIVO');
             $table->timestamps();
         });

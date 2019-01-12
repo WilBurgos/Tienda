@@ -9,14 +9,6 @@
 
     <title>{{ config('app.name', 'Tienda') }}</title>
 
-    <!-- Scripts -->
-    <!--<script src="{{ asset('js/app.js') }}" defer></script>-->
-    <script src="{{ asset('plugins/jQuery/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('plugins/Bootstrap/js/popper.min.js') }}"></script>
-    <script src="{{ asset('plugins/Bootstrap/js/bootstrap.min.js') }}"></script>
-
-    <script src="{{ asset('plugins/Font_awesome/js/all.js') }}"></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -24,9 +16,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/Bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!--<link href="{{ asset('plugins/Font_awesome/css/all.css') }}" rel="stylesheet">-->
-    
 
     @yield('css')
 </head>
@@ -88,8 +77,12 @@
             @yield('content')
         </main>
     </div>
-
-    @yield('scripts')
+    <!--<script src="{{ asset('js/app.js') }}" defer></script>-->
+    <script src="{{ asset('plugins/jQuery/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('plugins/Bootstrap/js/popper.min.js') }}"></script>
+    <script src="{{ asset('plugins/Bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('plugins/Font_awesome/js/all.js') }}"></script>
+    
     <script>
         var tituloModal         = $('#modal-titulo');
 	    var bodyModal           = $('#modal-body');
@@ -101,10 +94,12 @@
             }
         });
 
+        $('[data-toggle="tooltip"]').tooltip()
+
+        $('.form-control').addClass('mayuscula');
+
         $("body").on('change', '.mayuscula', function(field){
-        //$(".mayuscula").keyup(function() {
             $(this).val($(this).val().toUpperCase());
-            //field.value = field.value.toUpperCase()
         });
 
         $("body").on('keypress', '.soloNumeros', function(event){
@@ -140,5 +135,8 @@
             }, false);
         })();
     </script>
+
+    @yield('scripts')
+    
 </body>
 </html>

@@ -30,4 +30,5 @@ Route::resource('almacen', 'AlmacenController');
 Route::get('proveedor/get_proveedores','ProveedorController@json_proveedores')->name('prov.get_provs');
 Route::resource('proveedor', 'ProveedorController');
 
-
+Route::get('producto/get_productos','ProductoController@json_productos')->name('prod.get_prods');
+Route::resource('producto','ProductoController');
