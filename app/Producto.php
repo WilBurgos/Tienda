@@ -9,12 +9,12 @@ class Producto extends Model
     protected $table = 'producto';
     protected $fillable = [
     	'idProveedor',
-    	'NombreProducto',
-    	'Estatus'
+    	'nombreProducto',
+    	'estatus'
     ];
 
     public function proveedor(){
-    	return $this->belongsTo('App\Proveedor', 'id', 'idProveedor');
+    	return $this->belongsTo('App\Proveedor', 'idProveedor', 'id');
     }
 
     public function almacen(){

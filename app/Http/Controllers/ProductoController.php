@@ -16,12 +16,14 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return view('producto');
+        $proveedores = Proveedor::where('estatus','ACTIVO')->select('id','compania')->get();
+        //dd($proveedores);
+        return view('producto',['proveedores' => $proveedores]);
     }
 
     public function json_productos()
     {
-        $productos = Producto::get();
+        $productos = Producto::with('proveedor')->get();
         return response()->json($productos);
     }
 
@@ -43,7 +45,13 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newProducto = Producto::create([
+            'idProveedor'       => $request->input('idProveedor'),
+            'nombreProducto'    => $request->input('nombreProducto'),
+            'estatus'           => 'ACTIVO'
+        ]);
+
+        return response()->json($newProducto);
     }
 
     /**
@@ -77,7 +85,14 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $idProducto = $request->input('id');
+        $updateProdcuto = Producto::find($idProducto)->update([
+            'idProveedor'       => $request->input('idProveedor'),
+            'nombreProducto'    => $request->input('nombreProducto'),
+            'estatus'           => $request->input('estatus'),
+        ]);
+
+        return response()->json($updateProdcuto);
     }
 
     /**

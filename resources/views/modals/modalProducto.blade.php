@@ -14,18 +14,17 @@
                         <div class="col-md-4 mb-3">
                             <label for="idProveedor">Proveedor</label>
                             <select class="form-control select2" id="idProveedor">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option></option>
+                                @foreach($proveedores as $proveedor)
+                                <option value="{{ $proveedor->id }}">{{ $proveedor->compania }}</option>
+                                @endforeach
                             </select>
                             <div id="error_idProveedor"></div>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="producto">Producto</label>
-                            <input type="text" class="form-control" id="producto" placeholder="Nobre de producto" required>
-                            <div id="error_producto"></div>
+                            <label for="nombreProducto">Producto</label>
+                            <input type="text" class="form-control" id="nombreProducto" placeholder="Nobre de producto" required>
+                            <div id="error_nombreProducto"></div>
                         </div>
                     </div>
                     <div class="form-row">
@@ -44,18 +43,17 @@
                         <div class="col-md-4 mb-3">
                             <label for="upd-idProveedor">Proveedor</label>
                             <select class="form-control select2" id="upd-idProveedor">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option></option>
+                                @foreach($proveedores as $proveedor)
+                                <option value="{{ $proveedor->id }}">{{ $proveedor->compania }}</option>
+                                @endforeach
                             </select>
                             <div id="error_upd-idProveedor"></div>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="upd-producto">Producto</label>
-                            <input type="text" class="form-control" id="upd-producto" placeholder="Nobre de producto" required>
-                            <div id="error_upd-producto"></div>
+                            <label for="upd-nombreProducto">Producto</label>
+                            <input type="text" class="form-control" id="upd-nombreProducto" placeholder="Nobre de producto" required>
+                            <div id="error_upd-nombreProducto"></div>
                         </div>
                     </div>
                     <div class="form-row">

@@ -63,7 +63,7 @@
                     field: 'id',
                     title: 'No.',       
                 }, {
-                    field: 'idProveedor',
+                    field: 'proveedor.compania',
                     title: 'Compañía',
                     sortable: 'true',
                 }, {
@@ -124,18 +124,18 @@
                 $('#formNewProd')[0].reset();
                 // --------------------------------------------- //
                 $('#upd-id').val(row.id);
-                $('#upd-idProducto').val(row.idProducto);
-                $('#upd-producto').val(row.producto);
+                $('#upd-idProveedor').val(row.idProveedor);
+                $('#upd-nombreProducto').val(row.nombreProducto);
                 $('#upd-estatus').val(row.estatus);
                 modal.modal('show');
             },
             'click #bajaProducto': function(e, value, row, index) {
                 e.preventDefault();
                 var dataString = {
-                    id:             row.id,
-                    idProducto:     row.idProducto,
-                    producto:       row.producto,
-                    estatus:       'INACTIVO',
+                    id:                 row.id,
+                    idProveedor:        row.idProveedor,
+                    nombreProducto:     row.nombreProducto,
+                    estatus:            'INACTIVO',
                 };
                 $.ajax({
                     type: 'PUT',
@@ -155,10 +155,10 @@
             'click #altaProducto': function(e, value, row, index) {
                 e.preventDefault();
                 var dataString = {
-                    id:             row.id,
-                    idProducto:     row.idProducto,
-                    producto:       row.producto,
-                    estatus:       'ACTIVO',
+                    id:                 row.id,
+                    idProveedor:        row.idProveedor,
+                    nombreProducto:     row.nombreProducto,
+                    estatus:            'ACTIVO',
                 };
                 $.ajax({
                     type: 'PUT',
@@ -195,14 +195,12 @@
 
         footerModal.on('click', '#guardarProd', function(event){
             var dataString = {
-                compania:       $('#compania').val(),
-                direccion:      $('#direccion').val(),
-                telefono:       $('#telefono').val(),
-                correo:         $('#correo').val()
+                idProveedor:        $('#idProveedor').val(),
+                nombreProducto:     $('#nombreProducto').val(),
             };
             $.ajax({
                 type: 'POST',
-                url: RouteStoreProv,
+                url: RouteStoreProd,
                 data: dataString,
                 dataType: 'json',
                 success: function(data){
@@ -212,7 +210,7 @@
                 error: function(data){
                     var errors = data.responseJSON;
                     console.log(errors);
-                    var form = $("#formNewProv")
+                    var form = $("#formNewProd")
                     if (form[0].checkValidity() === false) {
                         event.preventDefault()
                         event.stopPropagation()
@@ -227,18 +225,16 @@
             });
         });
 
-        footerModal.on('click', '#updateProv', function(event){
+        footerModal.on('click', '#updateProd', function(event){
             var dataString = {
                 id:             $('#upd-id').val(),
-                compania:       $('#upd-compania').val(),
-                direccion:      $('#upd-direccion').val(),
-                telefono:       $('#upd-telefono').val(),
-                correo:         $('#upd-correo').val(),
+                idProveedor:    $('#upd-idProveedor').val(),
+                nombreProducto: $('#upd-nombreProducto').val(),
                 estatus:        $('#upd-estatus').val()
             };
             $.ajax({
                 type: 'PUT',
-                url: RouteIndexProv+'/'+dataString['id'],
+                url: RouteIndexProd+'/'+dataString['id'],
                 data: dataString,
                 dataType: 'json',
                 success: function(data){
@@ -248,7 +244,7 @@
                 error: function(data){
                     var errors = data.responseJSON;
                     console.log(errors);
-                    var form = $("#formNewProv")
+                    var form = $("#formNewProd")
                     if (form[0].checkValidity() === false) {
                         event.preventDefault()
                         event.stopPropagation()
