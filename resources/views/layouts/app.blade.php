@@ -43,11 +43,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
-                            <li class="nav-item">
+                            <!--<li class="nav-item">
                                 @if (Route::has('register'))
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 @endif
-                            </li>
+                            </li>-->
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -97,13 +97,15 @@
         $('[data-toggle="tooltip"]').tooltip()
 
         $('.form-control').addClass('mayuscula');
+        $('#email').removeClass('mayuscula');
+        $('#password').removeClass('mayuscula');
 
         $("body").on('change', '.mayuscula', function(field){
             $(this).val($(this).val().toUpperCase());
         });
 
         $("body").on('keypress', '.soloNumeros', function(event){
-        var key = window.event.keyCode;
+            var key = window.event.keyCode;
             if (key < 48 || key > 57) {
                 return false;
             }
