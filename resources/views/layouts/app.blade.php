@@ -99,6 +99,7 @@
         $('.form-control').addClass('mayuscula');
         $('#email').removeClass('mayuscula');
         $('#password').removeClass('mayuscula');
+        $('#password-confirm').removeClass('mayuscula');
 
         $("body").on('change', '.mayuscula', function(field){
             $(this).val($(this).val().toUpperCase());

@@ -78,7 +78,7 @@
 
         <div class="col-md-4">
             <div class="card">
-            	<a href="{{ route('register') }}">
+            	<a href="{{ route('administracion.index') }}">
 	                <div class="card-header">
 	                	ADMINISTRACIÓN
 	            	</div>

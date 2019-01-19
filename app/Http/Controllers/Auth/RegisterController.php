@@ -31,17 +31,17 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/register';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware('guest');
-    }
+    }*/
 
     /**
      * Get a validator for an incoming registration request.
@@ -90,6 +90,6 @@ class RegisterController extends Controller
         //$this->guard()->login($user);
 
         return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+                        ?: redirect($this->redirectTo);
     }
 }

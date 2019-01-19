@@ -65,8 +65,8 @@
                             <label for="ocupation" class="col-md-4 col-form-label text-md-right">Cargo a ocupar</label>
                             <div class="col-md-6">
                                 <select id="ocupation" class="form-control" name="ocupation" required>
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Cajero">Cajero</option>
+                                    <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                                    <option value="CAJERO">CAJERO</option>
                                 </select>
                             </div>
                         </div>
