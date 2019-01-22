@@ -15,7 +15,7 @@
 
 // Authentication Routes...
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
+//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 

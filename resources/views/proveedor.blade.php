@@ -126,7 +126,7 @@
                 $('.form-control').removeClass('is-invalid');
                 $('#updateProv').show();
                 $('#guardarProv').hide();
-                $('#formNewProv')[0].reset();
+                $('#formUpdateProv')[0].reset();
                 // --------------------------------------------- //
                 $('#upd-id').val(row.id);
                 $('#upd-compania').val(row.compania);

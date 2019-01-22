@@ -121,7 +121,7 @@
                 $('.form-control').removeClass('is-invalid');
                 $('#updateProd').show();
                 $('#guardarProd').hide();
-                $('#formNewProd')[0].reset();
+                $('#formUpdateProd')[0].reset();
                 // --------------------------------------------- //
                 $('#upd-id').val(row.id);
                 $('#upd-idProveedor').val(row.idProveedor);
@@ -244,7 +244,7 @@
                 error: function(data){
                     var errors = data.responseJSON;
                     console.log(errors);
-                    var form = $("#formNewProd")
+                    var form = $("#formUpdateProd");
                     if (form[0].checkValidity() === false) {
                         event.preventDefault()
                         event.stopPropagation()

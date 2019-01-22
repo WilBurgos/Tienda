@@ -16,6 +16,11 @@ class ProveedorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         return view('proveedor');
@@ -87,8 +92,7 @@ class ProveedorController extends Controller
      */
     public function update(proveedorRequest $request, $id)
     {
-        $idProveedor = $request->input('id');
-        $updateProveedor = Proveedor::find($idProveedor)->update([
+        $updateProveedor = Proveedor::find($id)->update([
             'compania'  => $request->input('compania'),
             'direccion' => $request->input('direccion'),
             'telefono'  => $request->input('telefono'),

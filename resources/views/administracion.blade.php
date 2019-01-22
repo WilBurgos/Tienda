@@ -77,7 +77,7 @@
                 },{
                     title:  'Acciones',
                     formatter: formatTableActions,
-                    //events: operateEvents
+                    events: operateEvents
                 }]
             });
 
@@ -110,23 +110,75 @@
         }
 
         window.operateEvents = {
-
+            'click #edit': function(e, value, row, index){
+                e.preventDefault();
+                limpiarModal();
+                tituloModal.append('Actualizar Usuario');
+                $('#formUpdateUser').show();
+                $('#formNewUser').hide();
+                $('#formUpdateUser').removeClass('was-validated');
+                $('.form-control').removeClass('is-valid');
+                $('.form-control').removeClass('is-invalid');
+                $('#updateUser').show();
+                //$('#guardarProd').hide();
+                $('#formUpdateUser')[0].reset();
+                // --------------------------------------------- //
+                $('#upd-id').val(row.id);
+                $('#upd-name').val(row.name);
+                $('#upd-email').val(row.email);
+                $('#upd-ocupation').val(row.ocupation);
+                modal.modal('show');
+            }
         }
 
         $(document).on('click','#nuevoUsuario',function(e){
             e.preventDefault();
             limpiarModal();
             tituloModal.append('Nuevo Usuario');
-            $('#formNewProd').show();
-            $('#formUpdateProd').hide();
-            $('#formNewProd').removeClass('was-validated');
+            $('#formNewUser').show();
+            $('#formUpdateUser').hide();
+            $('#formNewUser').removeClass('was-validated');
             $('.form-control').removeClass('is-valid');
             $('.form-control').removeClass('is-invalid');
-            $('#guardarProd').show();
-            $('#updateProd').hide();
+            //$('#guardarProd').show();
+            $('#updateUser').hide();
             $('#formNewUser')[0].reset();
             //$('.select2').select2();
             modal.modal('show');
+        });
+
+        footerModal.on('click', '#updateUser', function(event){
+            var dataString = {
+                id:         $('#upd-id').val(),
+                name:       $('#upd-name').val(),
+                email:      $('#upd-email').val(),
+                ocupation:  $('#upd-ocupation').val()
+            };
+            $.ajax({
+                type: 'PUT',
+                url: routeIndexAdmin+'/'+dataString['id'],
+                data: dataString,
+                dataType: 'json',
+                success: function(data){
+                    modal.modal('hide');
+                    table.bootstrapTable('refresh');
+                },
+                error: function(data){
+                    var errors = data.responseJSON;
+                    console.log(errors);
+                    var form = $("#formUpdateUser");
+                    if (form[0].checkValidity() === false) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    $.each(errors.errors, function(key, value){
+                        $('#error_upd-'+key).empty();
+                        $('#error_upd-'+key).addClass("invalid-feedback");
+                        $('#error_upd-'+key).append(value);
+                    });
+                    form.addClass('was-validated'); 
+                }
+            });
         });
     });
 </script>

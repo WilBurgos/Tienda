@@ -14,6 +14,11 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $proveedores = Proveedor::where('estatus','ACTIVO')->select('id','compania')->get();
@@ -85,8 +90,7 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $idProducto = $request->input('id');
-        $updateProdcuto = Producto::find($idProducto)->update([
+        $updateProdcuto = Producto::find($id)->update([
             'idProveedor'       => $request->input('idProveedor'),
             'nombreProducto'    => $request->input('nombreProducto'),
             'estatus'           => $request->input('estatus'),

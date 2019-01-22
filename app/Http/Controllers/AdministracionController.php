@@ -76,7 +76,13 @@ class AdministracionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $updateUsuario = User::find($id)->update([
+            'name'      => $request->input('name'),
+            'email'     => $request->input('email'),
+            'ocupation' => $request->input('ocupation')
+        ]);
+
+        return response()->json($updateUsuario);
     }
 
     /**
