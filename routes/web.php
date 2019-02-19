@@ -15,7 +15,7 @@
 
 // Authentication Routes...
 Route::get('/', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
-//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login')->middleware('guest');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
@@ -48,3 +48,5 @@ Route::resource('producto','ProductoController');
 
 Route::get('administracion/get_usuarios','AdministracionController@json_users')->name('admin.get_users');
 Route::resource('administracion', 'AdministracionController');
+
+Route::resource('pruebas', 'PruebasController');
