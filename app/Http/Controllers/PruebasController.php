@@ -44,13 +44,13 @@ class PruebasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(request $request)
+    public function store(proveedorRequest $request)
     {
         //dd($request->all());
-        $validatedData = $request->validate([
+        /*$validatedData = $request->validate([
             'compania' => 'required',
             'direccion' => 'required',
-        ]);
+        ]);*/
         $newProveedor = Proveedor::create([
             'compania'  => $request->input('compania'),
             'direccion' => $request->input('direccion'),
@@ -59,8 +59,8 @@ class PruebasController extends Controller
             'estatus' => 'ACTIVO'
         ]);
         
-        return response()->json($newProveedor)
-                            ->withCallback($request->all());
+        return response()->json($newProveedor);
+                           //->withCallback($request->all());
         //return response()->json($newProveedor)
         //                ?: redirect($this->redirectTo);
     }

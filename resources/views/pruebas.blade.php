@@ -4,6 +4,7 @@
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
+        {{$errors->first('compania')}}
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
@@ -20,14 +21,14 @@
                 <div class="row pb-3">
                     <div class="col-9">
                         {{ Form::label('compania', 'COMPAÑÍA:') }}
-                        {{ Form::text('compania',null,array('required','class'=>'form-control mayuscula','title'=>'Área que tramita')) }}
-                        <div id="error_compania"></div>
+                        {{ Form::text('compania',null,array('required','class'=>'form-control mayuscula'. ( $errors->has('compania') ? ' is-invalid' : '' ),'title'=>'Área que tramita')) }}
+                        @if ($errors->any())<div id="error_compania" class="invalid-feedback">{{ $errors->first('compania') }}</div>@endif
                         
                         @if ($errors->any())
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('compania') }}</strong>
-                                    </span>
-                                @endif
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('compania') }}</strong>
+                            </span>
+                        @endif
                     </div>
                     <div class="col-3">
                         {{ Form::label('direccion', 'DIRECCIÓN:') }}
