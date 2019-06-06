@@ -18,6 +18,6 @@ class Almacen extends Model
     ];
 
     public function productos(){
-    	return $this->hasMany('App\Oroducto','id','idProducto');
+    	return $this->hasMany('App\Producto','id','idProducto');
     }
 }

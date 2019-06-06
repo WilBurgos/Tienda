@@ -32,6 +32,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/register';
+    protected $redirectToTwo = '/administracion';
 
     /**
      * Create a new controller instance.
@@ -90,6 +91,6 @@ class RegisterController extends Controller
         //$this->guard()->login($user);
 
         return $this->registered($request, $user)
-                        ?: redirect($this->redirectTo);
+                        ?: redirect($this->redirectToTwo);//redirect($this->redirectTo);
     }
 }

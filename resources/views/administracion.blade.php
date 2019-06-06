@@ -9,7 +9,7 @@
 
 @section('content')
 
-@if (Auth::user()->ocupation == "ADMINISTRADOR")
+@if (Auth::user()->ocupation == "GERENTE")
 <div class="container">
     <div class="card" style="border: 1px solid rgba(0, 0, 0, 0);">
         <div class="card-header" >
@@ -31,7 +31,7 @@
     </table>
     @include('modals.modalRegister')
 </div>
-@elseif(Auth::user()->ocupation == "CAJERO")
+@elseif(Auth::user()->ocupation == "MESERO")
 
 @endif
 

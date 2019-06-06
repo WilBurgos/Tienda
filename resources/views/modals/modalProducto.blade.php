@@ -12,23 +12,24 @@
                 <form id="formNewProd" class="needs-validation" novalidate>
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <label for="idProveedor">Proveedor</label>
+                            <label for="idProveedor">Tipo de producto:</label>
                             <select class="form-control select2" id="idProveedor">
                                 <option></option>
-                                @foreach($proveedores as $proveedor)
-                                <option value="{{ $proveedor->id }}">{{ $proveedor->compania }}</option>
-                                @endforeach
+                                <option value="COMIDA">COMIDA</option>
+                                <option value="BEBIDA">BEBIDA</option>
                             </select>
                             <div id="error_idProveedor"></div>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="nombreProducto">Producto</label>
+                            <label for="nombreProducto">Nombre de Producto:</label>
                             <input type="text" class="form-control" id="nombreProducto" placeholder="Nobre de producto" required>
                             <div id="error_nombreProducto"></div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        
+                        <div class="col-md-4 mb-3">
+                            <label for="estatus">Precio:</label>
+                            <input type="text" class="form-control" id="estatus" placeholder="Precio de prodcuto" required>
+                            <div id="error_estatus"></div>
+                        </div>
                     </div>
                 </form>
                 <!-- FIN SAVE PRODUCTO -->
@@ -44,9 +45,8 @@
                             <label for="upd-idProveedor">Proveedor</label>
                             <select class="form-control select2" id="upd-idProveedor">
                                 <option></option>
-                                @foreach($proveedores as $proveedor)
-                                <option value="{{ $proveedor->id }}">{{ $proveedor->compania }}</option>
-                                @endforeach
+                                <option value="COMIDA">COMIDA</option>
+                                <option value="BEBIDA">BEBIDA</option>
                             </select>
                             <div id="error_upd-idProveedor"></div>
                         </div>
@@ -55,11 +55,9 @@
                             <input type="text" class="form-control" id="upd-nombreProducto" placeholder="Nobre de producto" required>
                             <div id="error_upd-nombreProducto"></div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3" style="display:none;">
-                            <label for="upd-estatus">Estatus</label>
-                            <input type="text" class="form-control" id="upd-estatus" placeholder="Estatus de compañía" required>
+                        <div class="col-md-4 mb-3">
+                            <label for="upd-estatus">Precio:</label>
+                            <input type="text" class="form-control" id="upd-estatus" placeholder="Precio de prodcuto" required>
                             <div id="error_upd-estatus"></div>
                         </div>
                     </div>
@@ -67,9 +65,9 @@
                 <!-- FIN UPDATE PRODUCTO -->
             </div>
             <div class="modal-footer" id="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModal">Close</button>
-                <button type="button" class="btn btn-primary" type="submit" id="guardarProd">Save changes</button>
-                <button type="button" class="btn btn-primary" type="submit" id="updateProd">Update changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModal">Cerrar</button>
+                <button type="button" class="btn btn-primary" type="submit" id="guardarProd">Guardar</button>
+                <button type="button" class="btn btn-primary" type="submit" id="updateProd">Guardar</button>
             </div>
         </div>
     </div>

@@ -54,8 +54,8 @@
                         <label for="ocupation" class="col-md-4 col-form-label text-md-right">Cargo a ocupar</label>
                         <div class="col-md-6">
                             <select id="ocupation" class="form-control" name="ocupation" required>
-                                <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                                <option value="CAJERO">CAJERO</option>
+                                <option value="GERENTE">GERENTE</option>
+                                <option value="MESERO">MESERO</option>
                             </select>
                         </div>
                     </div>
@@ -112,8 +112,8 @@
                         <label for="upd-ocupation" class="col-md-4 col-form-label text-md-right">Cargo a ocupar</label>
                         <div class="col-md-6">
                             <select id="upd-ocupation" class="form-control" name="ocupation" required>
-                                <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                                <option value="CAJERO">CAJERO</option>
+                                <option value="GERENTE">GERENTE</option>
+                                <option value="MESERO">MESERO</option>
                             </select>
                         </div>
                     </div>

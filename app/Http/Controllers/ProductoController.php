@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Proveedor;
 use App\Producto;
+use App\Alimentos;
 
 class ProductoController extends Controller
 {
@@ -21,14 +22,14 @@ class ProductoController extends Controller
     
     public function index()
     {
-        $proveedores = Proveedor::where('estatus','ACTIVO')->select('id','compania')->get();
+        // $proveedores = Alimentos::select('id','nombre')->get();
         //dd($proveedores);
-        return view('producto',['proveedores' => $proveedores]);
+    return view('producto'/*,['proveedores' => $proveedores]*/);
     }
 
     public function json_productos()
     {
-        $productos = Producto::with('proveedor')->get();
+        $productos = Alimentos::all();
         return response()->json($productos);
     }
 
@@ -50,13 +51,26 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        $newProducto = Producto::create([
-            'idProveedor'       => $request->input('idProveedor'),
-            'nombreProducto'    => $request->input('nombreProducto'),
-            'estatus'           => 'ACTIVO'
-        ]);
-
-        return response()->json($newProducto);
+        $mensaje = null;
+        \DB::beginTransaction();
+        try{
+            $newProducto = Alimentos::create([
+                'tipoComida'    => $request->tipoComida,
+                'nombre'        => $request->nombre,
+                'precio'        => $request->precio
+            ]);
+            // $newProducto = Producto::create([
+            //     'idProveedor'       => $request->input('idProveedor'),
+            //     'nombreProducto'    => $request->input('nombreProducto'),
+            //     'estatus'           => 'ACTIVO'
+            // ]);
+            \DB::commit();
+            $mensaje = 'Los datos se guardaron correctamente';
+        } catch (\Exception $e) {
+            $mensaje = $e->getMessage();
+            \DB::rollback();
+        }
+        return response()->json($mensaje);
     }
 
     /**
@@ -90,13 +104,26 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateProdcuto = Producto::find($id)->update([
-            'idProveedor'       => $request->input('idProveedor'),
-            'nombreProducto'    => $request->input('nombreProducto'),
-            'estatus'           => $request->input('estatus'),
-        ]);
-
-        return response()->json($updateProdcuto);
+        $mensaje = null;
+        \DB::beginTransaction();
+        try{
+            $updateProdcuto = Alimentos::find($id)->update([
+                'tipoComida'    => $request->tipoComida,
+                'nombre'        => $request->nombre,
+                'precio'        => $request->precio
+            ]);
+            // $updateProdcuto = Producto::find($id)->update([
+            //     'idProveedor'       => $request->input('idProveedor'),
+            //     'nombreProducto'    => $request->input('nombreProducto'),
+            //     'estatus'           => $request->input('estatus'),
+            // ]);
+            \DB::commit();
+            $mensaje = 'Los datos se guardaron correctamente';
+        } catch (\Exception $e) {
+            $mensaje = $e->getMessage();
+            \DB::rollback();
+        }
+        return response()->json($mensaje);
     }
 
     /**

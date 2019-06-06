@@ -16,9 +16,16 @@ class UserTableSeeder extends Seeder
         		'name'		=> 'WILBERT',
         		'email'		=> 'wil9517@hotmail.com',
         		'password'	=> bcrypt('BUMW950330'),
-                'ocupation'	=> 'ADMINISTRADOR',
+                'ocupation'	=> 'GERENTE',
                 'estatus'   => 'ACTIVO'
-        	]
+            ],
+            [
+                'name'		=> 'MESERO',
+        		'email'		=> 'mesero@mail.com',
+        		'password'	=> bcrypt('MESERO'),
+                'ocupation'	=> 'MESERO',
+                'estatus'   => 'ACTIVO'
+            ]
         ]);
     }
 }

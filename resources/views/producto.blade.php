@@ -9,8 +9,8 @@
 
 @section('content')
 
-@if (Auth::user()->ocupation == "ADMINISTRADOR")
-<div class="container">
+@if (Auth::user()->ocupation == "GERENTE")
+<!-- <div class="container"> -->
     <div class="card" style="border: 1px solid rgba(0, 0, 0, 0);">
         <div class="card-header" >
             <div class="container">
@@ -30,7 +30,7 @@
     <table id="tableProducto" style="text-align: center;">
     </table>
     @include('modals.modalProducto')
-</div>
+<!-- </div> -->
 @elseif(Auth::user()->ocupation == "CAJERO")
 
 @endif
@@ -63,16 +63,16 @@
                     field: 'id',
                     title: 'No.',       
                 }, {
-                    field: 'proveedor.compania',
-                    title: 'Compañía',
+                    field: 'nombre',
+                    title: 'Nombre de producto',
                     sortable: 'true',
                 }, {
-                    field: 'nombreProducto',
-                    title: 'Producto',
+                    field: 'tipoComida',
+                    title: 'Tipo de producto',
                     sortable: 'true',
                 }, {                    
-                    field: 'estatus',
-                    title: 'Estatus',
+                    field: 'precio',
+                    title: 'Precio',
                     sortable: 'true',
                 },{
                     title:  'Acciones',
@@ -101,11 +101,11 @@
         var formatTableActions = function(value, row, index){
             edit = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Editar Producto" id="edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;';
             if(row.estatus=='ACTIVO'){
-                baja = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de baja" id="bajaProducto"><i class="fa fa-arrow-down"></i></button>&nbsp;';
-                return [edit,baja].join('');
+                // baja = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de baja" id="bajaProducto"><i class="fa fa-arrow-down"></i></button>&nbsp;';
+                return [edit].join('');
             }else{
-                alta = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de alta" id="altaProducto"><i class="fa fa-arrow-up"></i></button>&nbsp;&nbsp;';
-                return [edit,alta].join('');
+                // alta = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de alta" id="altaProducto"><i class="fa fa-arrow-up"></i></button>&nbsp;&nbsp;';
+                return [edit].join('');
             }
         }
 
@@ -124,9 +124,9 @@
                 $('#formUpdateProd')[0].reset();
                 // --------------------------------------------- //
                 $('#upd-id').val(row.id);
-                $('#upd-idProveedor').val(row.idProveedor);
-                $('#upd-nombreProducto').val(row.nombreProducto);
-                $('#upd-estatus').val(row.estatus);
+                $('#upd-idProveedor').val(row.tipoComida);
+                $('#upd-nombreProducto').val(row.nombre);
+                $('#upd-estatus').val(row.precio);
                 modal.modal('show');
             },
             'click #bajaProducto': function(e, value, row, index) {
@@ -195,8 +195,9 @@
 
         footerModal.on('click', '#guardarProd', function(event){
             var dataString = {
-                idProveedor:        $('#idProveedor').val(),
-                nombreProducto:     $('#nombreProducto').val(),
+                tipoComida:     $('#idProveedor').val(),
+                nombre:         $('#nombreProducto').val(),
+                precio:         $('#estatus').val()
             };
             $.ajax({
                 type: 'POST',
@@ -228,9 +229,9 @@
         footerModal.on('click', '#updateProd', function(event){
             var dataString = {
                 id:             $('#upd-id').val(),
-                idProveedor:    $('#upd-idProveedor').val(),
-                nombreProducto: $('#upd-nombreProducto').val(),
-                estatus:        $('#upd-estatus').val()
+                tipoComida:     $('#upd-idProveedor').val(),
+                nombre:         $('#upd-nombreProducto').val(),
+                precio:         $('#upd-estatus').val()
             };
             $.ajax({
                 type: 'PUT',

@@ -22,7 +22,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-            <div class="container">
+            <!-- <div class="container"> -->
                 <a class="navbar-brand" href="@if( !Auth::user() ) {{ url('/') }} @else {{ url('/home') }} @endif">
                     {{ config('app.name', 'Tienda') }}
                 </a>
@@ -70,12 +70,33 @@
                         @endguest
                     </ul>
                 </div>
-            </div>
+            <!-- </div> -->
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <!-- <div class="container"> -->
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-4">
+                    <h5 class="m-0 text-dark">  @yield('title') </h5>
+                  </div><!-- /.col -->
+                  <div class="col">
+                    <h5 class="m-0 text-dark">  @yield('estatus')
+                  </div>
+                  <div class="col-sm-4">
+                    <ol class="breadcrumb float-sm-right" id="breadcumb" style="background-color:#e9ecef00!important;">
+                      <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class=" nav-icon fa fa-home"></i> Inicio</a></li>
+                      <li class="breadcrumb-item active">@yield('location')</li>
+                    </ol>
+                  </div><!-- /.col -->
+                </div><!-- /.row -->
+              </div><!-- /.container-fluid -->
+            <!-- </div> -->
+
+            <section class="content">
+              <div class="container-fluid">
+                @yield('content')
+              </div>
+            </section>
     </div>
     <!--<script src="{{ asset('js/app.js') }}" defer></script>-->
     <script src="{{ asset('plugins/jQuery/jquery-3.3.1.min.js') }}"></script>
@@ -118,7 +139,7 @@
             //bodyModal.empty()
             //footerModal.empty()
         };
-    
+        /*
         (function() {
             'use strict';
             window.addEventListener('load', function() {
@@ -138,6 +159,7 @@
                 });
             }, false);
         })();
+        */
     </script>
 
     @yield('scripts')

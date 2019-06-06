@@ -49,4 +49,12 @@ Route::resource('producto','ProductoController');
 Route::get('administracion/get_usuarios','AdministracionController@json_users')->name('admin.get_users');
 Route::resource('administracion', 'AdministracionController');
 
+Route::get('ventas/get_ventas','VentasController@json_ventas')->name('ventas.get_ventas');
+Route::post('ventas/get_ventasFechas','VentasController@json_ventasFechas')->name('ventas.get_ventasFechas');
+Route::resource('ventas', 'VentasController');
+
+Route::get('ordenes/get_ordenes','OrdenesController@json_ordenes')->name('ordenes.get_ordenes');
+Route::post('ordenes/cerrar_orden','OrdenesController@cerrarOrden')->name('ordenes.cerrarOrden');
+Route::resource('ordenes', 'OrdenesController');
+
 Route::resource('pruebas', 'PruebasController');

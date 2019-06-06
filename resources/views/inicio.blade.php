@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-@if (Auth::user()->ocupation == "ADMINISTRADOR")
-<div class="container">
+@if (Auth::user()->ocupation == "GERENTE")
+<!-- <div class="container"> -->
     <div class="row justify-content-center">
-
+        <!--
         <div class="col-md-4">
             <div class="card">
             	<a href="{{ route('almacen.index') }}">
@@ -14,6 +14,20 @@
 	                <div class="card-body">
 	                    <img src="{{ asset('imagenes/Almacen.jpg') }}" width="100%" style="height: 218px;">
 	                </div>
+            	</a>
+            </div>
+        </div>
+        -->
+
+        <div class="col-md-4">
+            <div class="card">
+            	<a href="{{ route('ordenes.index') }}">
+                	<div class="card-header">
+                		ORDENES
+            		</div>
+                	<div class="card-body">
+                    	<img src="{{ asset('imagenes/tomar-orden.jpg') }}" width="100%" style="height: 218px;">
+                	</div>
             	</a>
             </div>
         </div>
@@ -30,7 +44,7 @@
             	</a>
             </div>
         </div>
-
+        <!--
         <div class="col-md-4">
             <div class="card">
             	<a href="">
@@ -43,13 +57,13 @@
 	            </a>
             </div>
         </div>
-
+        -->
     </div>
 
     <hr>
 
     <div class="row justify-content-center">
-
+        <!--
         <div class="col-md-4">
             <div class="card">
             	<a href="{{ route('proveedor.index') }}">
@@ -62,6 +76,7 @@
                 </a>
             </div>
         </div>
+        -->
 
         <div class="col-md-4">
             <div class="card">
@@ -90,36 +105,34 @@
         </div>
 
     </div>
-</div>
-@elseif(Auth::user()->ocupation == "CAJERO")
-<div class="container">
+<!-- </div> -->
+@elseif(Auth::user()->ocupation == "MESERO")
+<!-- <div class="container"> -->
     <div class="row justify-content-center">
     	
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">
-                	OPCIÓN 1
-                </div>
-                <div class="card-body">
-                    <div class="alert alert-success" role="alert">
-                        {{ Auth::user() }}
-                    </div>
-                </div>
+            	<a href="{{ route('ordenes.index') }}">
+                	<div class="card-header">
+                		ORDENES
+            		</div>
+                	<div class="card-body">
+                    	<img src="{{ asset('imagenes/tomar-orden.jpg') }}" width="100%" style="height: 218px;">
+                	</div>
+            	</a>
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="card">
-                <div class="card-header">
-                	OPCIÓN 2
-            	</div>
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                </div>
+                <a href="{{ route('ventas.index') }}">
+                    <div class="card-header">
+                        VENTAS
+                    </div>
+                    <div class="card-body">
+                        <img src="{{ asset('imagenes/Ventas.jpg') }}" width="100%" style="height: 218px;">
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -190,7 +203,7 @@
         </div>
 
     </div>
-</div>
+<!-- </div> -->
 @endif
 
 @endsection
