@@ -57,4 +57,7 @@ Route::get('ordenes/get_ordenes','OrdenesController@json_ordenes')->name('ordene
 Route::post('ordenes/cerrar_orden','OrdenesController@cerrarOrden')->name('ordenes.cerrarOrden');
 Route::resource('ordenes', 'OrdenesController');
 
+Route::get('clientes/get_clientes','ClientesController@json_clientes')->name('clientes.get_clientes');
+Route::resource('clientes', 'ClientesController');
+
 Route::resource('pruebas', 'PruebasController');

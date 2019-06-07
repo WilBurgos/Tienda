@@ -16,7 +16,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/Bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('plugins/Select2/css/select2.css') }}" rel="stylesheet">
     @yield('css')
 </head>
 <body>
@@ -74,28 +74,35 @@
         </nav>
 
         <!-- <div class="container"> -->
-              <div class="container-fluid">
+            <div class="container-fluid">
                 <div class="row mb-2">
-                  <div class="col-sm-4">
-                    <h5 class="m-0 text-dark">  @yield('title') </h5>
-                  </div><!-- /.col -->
-                  <div class="col">
-                    <h5 class="m-0 text-dark">  @yield('estatus')
-                  </div>
-                  <div class="col-sm-4">
-                    <ol class="breadcrumb float-sm-right" id="breadcumb" style="background-color:#e9ecef00!important;">
-                      <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class=" nav-icon fa fa-home"></i> Inicio</a></li>
-                      <li class="breadcrumb-item active">@yield('location')</li>
-                    </ol>
-                  </div><!-- /.col -->
+                    <div class="col-sm-4">
+                        <h5 class="m-0 text-dark">  @yield('title') </h5>
+                    </div><!-- /.col -->
+                    <div class="col">
+                        <h5 class="m-0 text-dark">  @yield('estatus')
+                    </div>
+                    <div class="col-sm-4">
+                        <ol class="breadcrumb float-sm-right" id="breadcumb" style="background-color:#e9ecef00!important;">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('home') }}">
+                                    <i class=" nav-icon fa fa-home"></i>
+                                    Inicio
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active">
+                                @yield('location')
+                            </li>
+                        </ol>
+                    </div><!-- /.col -->
                 </div><!-- /.row -->
-              </div><!-- /.container-fluid -->
-            <!-- </div> -->
+            </div><!-- /.container-fluid -->
+        <!-- </div> -->
 
             <section class="content">
-              <div class="container-fluid">
-                @yield('content')
-              </div>
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
             </section>
     </div>
     <!--<script src="{{ asset('js/app.js') }}" defer></script>-->
@@ -103,7 +110,8 @@
     <script src="{{ asset('plugins/Bootstrap/js/popper.min.js') }}"></script>
     <script src="{{ asset('plugins/Bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('plugins/Font_awesome/js/all.js') }}"></script>
-    
+    <script src="{{ asset('plugins/Select2/js/select2.full.js') }}"></script>
+    <script src="{{ asset('plugins/Select2/js/es.js') }}"></script>
     <script>
         var tituloModal         = $('#modal-titulo');
 	    var bodyModal           = $('#modal-body');
@@ -139,6 +147,10 @@
             //bodyModal.empty()
             //footerModal.empty()
         };
+
+        $('.select2').select2({
+            language: "es"
+        });
         /*
         (function() {
             'use strict';

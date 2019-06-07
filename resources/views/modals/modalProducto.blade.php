@@ -13,7 +13,7 @@
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <label for="idProveedor">Tipo de producto:</label>
-                            <select class="form-control select2" id="idProveedor">
+                            <select class="form-control" id="idProveedor">
                                 <option></option>
                                 <option value="COMIDA">COMIDA</option>
                                 <option value="BEBIDA">BEBIDA</option>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="upd-idProveedor">Proveedor</label>
-                            <select class="form-control select2" id="upd-idProveedor">
+                            <select class="form-control" id="upd-idProveedor">
                                 <option></option>
                                 <option value="COMIDA">COMIDA</option>
                                 <option value="BEBIDA">BEBIDA</option>

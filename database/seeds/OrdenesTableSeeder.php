@@ -15,7 +15,7 @@ class OrdenesTableSeeder extends Seeder
         	[
         		'idMesero'		=> 2,
         		'idCliente'		=> 4,
-        		'folioOrden'	=> 'ORD619',
+        		'folioOrden'	=> 1559453544,
                 'numMesa'	    => 4,
                 'diaOrden'      => '2019-06-05',
                 'estatusOrden'  => 'CONSUMIENDO',
@@ -24,7 +24,7 @@ class OrdenesTableSeeder extends Seeder
             [
         		'idMesero'		=> 2,
         		'idCliente'		=> 2,
-        		'folioOrden'	=> 'ORD666',
+        		'folioOrden'	=> 1551423544,
                 'numMesa'	    => 2,
                 'diaOrden'      => '2019-06-05',
                 'estatusOrden'  => 'PENDIENTE',
@@ -33,7 +33,7 @@ class OrdenesTableSeeder extends Seeder
             [
         		'idMesero'		=> 2,
         		'idCliente'		=> 6,
-        		'folioOrden'	=> 'ORD666',
+        		'folioOrden'	=> 1551475544,
                 'numMesa'	    => 2,
                 'diaOrden'      => '2019-06-05',
                 'estatusOrden'  => 'PAGADA',

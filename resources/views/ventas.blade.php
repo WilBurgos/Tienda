@@ -19,7 +19,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <a href="{{ route('home') }}">ATRAS</a>
+                        <a href="{{ route('home') }}">ATRÁS</a>
                     </div>
                     <div class="col-6" style="text-align: center;">
                         VENTAS

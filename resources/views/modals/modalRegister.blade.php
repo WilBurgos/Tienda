@@ -120,7 +120,7 @@
                 </form>
             </div>
             <div class="modal-footer" id="modal-footer">
-                <button type="button" class="btn btn-primary" type="submit" id="updateUser">Update changes</button>
+                <button type="button" class="btn btn-primary" type="submit" id="updateUser">Guardar</button>
             </div>
         </div>
     </div>

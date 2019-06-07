@@ -10,7 +10,8 @@ class Alimentos extends Model
     protected $fillable = [
         'nombre',
         'tipoComida',
-        'precio'
+        'precio',
+        'codigo'
     ];
 
     public function alimentoOrden(){

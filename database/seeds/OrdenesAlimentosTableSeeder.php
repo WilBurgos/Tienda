@@ -11,7 +11,7 @@ class OrdenesAlimentosTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('ordenAlimentos')->insert([
+        DB::table('ordenalimentos')->insert([
         	[
         		'idOrden'		=> 1,
                 'idAlimento'    => 16,

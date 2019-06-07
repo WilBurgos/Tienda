@@ -4,37 +4,42 @@
 <link href="{{ asset('plugins/BootstrapTable/css/bootstrap-table.min.css') }}" rel="stylesheet">
 <!--<link href="{{ asset('plugins/Select2/css/select2.min.css') }}" rel="stylesheet">
 <link href="{{ asset('plugins/Select2/css/select2-bootstrap.min.css') }}" rel="stylesheet">-->
+@endsection
 
+@section('title')
+    
+@endsection
+
+@section('location')
+    Productos
 @endsection
 
 @section('content')
-
-@if (Auth::user()->ocupation == "GERENTE")
-<!-- <div class="container"> -->
-    <div class="card" style="border: 1px solid rgba(0, 0, 0, 0);">
-        <div class="card-header" >
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <a href="{{ route('home') }}">BACK</a>
-                    </div>
-                    <div class="col-6" style="text-align: center;">
-                        PRODUCTOS
-                    </div>
-                    <div class="col">
+    {{--@if (Auth::user()->ocupation == "GERENTE")--}}
+    <!-- <div class="container"> -->
+        <div class="card" style="border: 1px solid rgba(0, 0, 0, 0);">
+            <div class="card-header" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <a href="{{ route('home') }}">BACK</a>
+                        </div>
+                        <div class="col-6" style="text-align: center;">
+                            PRODUCTOS
+                        </div>
+                        <div class="col">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <table id="tableProducto" style="text-align: center;">
-    </table>
-    @include('modals.modalProducto')
-<!-- </div> -->
-@elseif(Auth::user()->ocupation == "CAJERO")
+        <table id="tableProducto" style="text-align: center;">
+        </table>
+        @include('modals.modalProducto')
+    <!-- </div> -->
+    {{--@elseif(Auth::user()->ocupation == "CAJERO")--}}
 
-@endif
-
+    {{--@endif--}}
 @endsection
 
 @section('scripts')

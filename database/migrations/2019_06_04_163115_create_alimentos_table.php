@@ -21,6 +21,7 @@ class CreateAlimentosTable extends Migration
             $table->enum('tipoComida',['COMIDA','BEBIDA'])->default('COMIDA');
             //precio
             $table->integer('precio');
+            $table->string('codigo',255);
             $table->timestamps();
         });
     }

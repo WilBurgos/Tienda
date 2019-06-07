@@ -10,13 +10,13 @@
 @section('content')
 
 @if (Auth::user()->ocupation == "GERENTE")
-<div class="container">
+<!-- <div class="container"> -->
     <div class="card" style="border: 1px solid rgba(0, 0, 0, 0);">
         <div class="card-header" >
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <a href="{{ route('home') }}">BACK</a>
+                        <a href="{{ route('home') }}">ATRÁS</a>
                     </div>
                     <div class="col-6" style="text-align: center;">
                         ADMINISTRACIÓN
@@ -30,7 +30,7 @@
     <table id="tableUser" style="text-align: center;">
     </table>
     @include('modals.modalRegister')
-</div>
+<!-- </div> -->
 @elseif(Auth::user()->ocupation == "MESERO")
 
 @endif

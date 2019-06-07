@@ -62,7 +62,7 @@ class OrdenesController extends Controller
                 $idCliente = $newCliente->id;
             }else{
                 $visitas    = Clientes::select('numVisitas')->where('id',$request->idCliente)->first();
-                $sumaVisitas = $visitas + 1;
+                $sumaVisitas = $visitas->numVisitas + 1;
                 $updCliente = Clientes::find($request->idCliente)->update([
                     'numVisitas'    => $sumaVisitas
                 ]);
@@ -71,7 +71,7 @@ class OrdenesController extends Controller
             $newOrden = Ordenes::create([
                 'idMesero'      => auth()->user()->id,
                 'idCliente'     => $idCliente,
-                'folioOrden'    => 'ORD954',
+                'folioOrden'    => time(),
                 'numMesa'       => $request->numeroMesa,
                 'diaOrden'      => date('Y-m-d'),
                 'totalOrden'    => 0
@@ -126,36 +126,60 @@ class OrdenesController extends Controller
         $mensaje = null;
         \DB::beginTransaction();
         try{
-            switch ($request->estatusOrden) {
-                case 'CONSUMIENDO':
-                    $updOrden = Ordenes::find($id)->update([
-                        'estatusOrden'      => $request->estatusOrden
-                    ]);
-                    break;
-                case 'CERRADA':
-                    $ordenAlimentos = OrdenAlimentos::with('alimento')->where('idOrden',$id)->get();
-                    $total = 0;
-                    foreach ($ordenAlimentos as $ordenAlimento) {
-                        $total = $total + ($ordenAlimento->alimento->precio*$ordenAlimento->cantidad);
+            if( $request->actualizacion == 'datos' ){
+                $ordenAlimentos = OrdenAlimentos::where('idOrden',$id)->get();
+                $countOA = count($ordenAlimentos->toArray());
+                $suma=0;
+                foreach ($request->idComida as $key => $value) {
+                    if($suma < $countOA){
+                        $oA = OrdenAlimentos::where('id',$ordenAlimentos[$key]->id)->first();
+                        if( $oA!=null ){
+                            $updOA = OrdenAlimentos::find($ordenAlimentos[$key]->id)->update([
+                                'idAlimento'    => $request->idComida[$key],
+                                'cantidad'      => $request->cantidadComida[$key]
+                            ]);
+                        }
+                    }else{
+                        $newComida = OrdenAlimentos::create([
+                            'idOrden'       => $id,
+                            'idAlimento'    => $request->idComida[$key],
+                            'cantidad'      => $request->cantidadComida[$key]
+                        ]);
                     }
-                    $updOrden = Ordenes::find($id)->update([
-                        'estatusOrden'      => $request->estatusOrden,
-                        'totalOrden'        => $total
-                    ]);
-                    break;
-                case 'PAGADA':
-                    $updOrden = Ordenes::find($id)->update([
-                        'estatusOrden'      => $request->estatusOrden
-                    ]);
-                    $newVenta = Ventas::create([
-                        'idOrden'       => $id,
-                        'diaVenta'      => date('Y-m-d'),
-                        'totalVenta'    => $request->totalOrden
-                    ]);
-                    break;
-                default:
-                    return redirect()->action('OrdenesController@index');
-                    break;
+                    $suma=$suma+1;
+                }
+            }else{
+                switch ($request->estatusOrden) {
+                    case 'CONSUMIENDO':
+                        $updOrden = Ordenes::find($id)->update([
+                            'estatusOrden'      => $request->estatusOrden
+                        ]);
+                        break;
+                    case 'CERRADA':
+                        $ordenAlimentos = OrdenAlimentos::with('alimento')->where('idOrden',$id)->get();
+                        $total = 0;
+                        foreach ($ordenAlimentos as $ordenAlimento) {
+                            $total = $total + ($ordenAlimento->alimento->precio*$ordenAlimento->cantidad);
+                        }
+                        $updOrden = Ordenes::find($id)->update([
+                            'estatusOrden'      => $request->estatusOrden,
+                            'totalOrden'        => $total
+                        ]);
+                        break;
+                    case 'PAGADA':
+                        $updOrden = Ordenes::find($id)->update([
+                            'estatusOrden'      => $request->estatusOrden
+                        ]);
+                        $newVenta = Ventas::create([
+                            'idOrden'       => $id,
+                            'diaVenta'      => date('Y-m-d'),
+                            'totalVenta'    => $request->totalOrden
+                        ]);
+                        break;
+                    default:
+                        return redirect()->action('OrdenesController@index');
+                        break;
+                }
             }
             \DB::commit();
             $mensaje = 'Los datos se guardaron correctamente';

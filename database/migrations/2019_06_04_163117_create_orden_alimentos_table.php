@@ -13,7 +13,7 @@ class CreateOrdenAlimentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('ordenAlimentos', function (Blueprint $table) {
+        Schema::create('ordenalimentos', function (Blueprint $table) {
             $table->increments('id');
             //idOrden (tabla ordenes)
             $table->integer('idOrden')->unsigned();

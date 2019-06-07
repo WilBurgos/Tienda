@@ -57,7 +57,8 @@ class ProductoController extends Controller
             $newProducto = Alimentos::create([
                 'tipoComida'    => $request->tipoComida,
                 'nombre'        => $request->nombre,
-                'precio'        => $request->precio
+                'precio'        => $request->precio,
+                'codigo'        => time()
             ]);
             // $newProducto = Producto::create([
             //     'idProveedor'       => $request->input('idProveedor'),

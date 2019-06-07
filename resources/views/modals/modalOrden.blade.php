@@ -68,7 +68,7 @@
                             <div id="error_cantidadComida"></div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row" name="plusConcepto">
                         <div class="col-md-8 mb-3">
                             <label for="idBebida">Bebida</label>
                             <select name="idComida[]" id="idBebida" class="form-control arrayIdBebida">
@@ -84,6 +84,13 @@
                             <input type="number" class="form-control arrayCantidadBebida" name="cantidadComida[]" id="cantidadBebida" placeholder="Cantidad de producto" required>
                             <div id="error_cantidadBebida"></div>
                         </div>
+                    </div>
+                    <hr id="plus" class="my-4">
+                    <div id="nuevoConcepto" class="col-md-12">
+                    <!-- <div class="form-row" id="nuevoConcepto"> -->
+                    </div>
+                    <div class="form-row">
+                        <input type="button" id="masProducto" value="Agregar más consumo" class="btn btn-primary">
                     </div>
                 </form>
                 <!-- FIN SAVE PRODUCTO -->
@@ -138,36 +145,43 @@
                     <div class="form-row">
                         <div class="col-md-8 mb-3">
                             <label for="upd-idComida">Comida</label>
-                            <select name="upd-idComida" id="upd-idComida" class="form-control arrayIdComidaUpd">
+                            <select name="upd-idComida[]" id="upd-idComida" class="form-control arrayIdComidaUpd">
                                 <option></option>
                                 @foreach($comidas as $comida)
                                     <option value="{{ $comida->id }}">{{ $comida->nombre }}</option>
                                 @endforeach
                             </select>
-                            <div id="error_idComida"></div>
+                            <div id="error_upd-idComida"></div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="upd-cantidadComida">Cantidad:</label>
-                            <input type="number" class="form-control arrayCantidadComidaUpd" name="upd-cantidadComida" id="upd-cantidadComida" placeholder="Cantidad de producto" required>
-                            <div id="error_cantidadComida"></div>
+                            <input type="number" class="form-control arrayCantidadComidaUpd" name="upd-cantidadComida[]" id="upd-cantidadComida" placeholder="Cantidad de producto" required>
+                            <div id="error_upd-cantidadComida"></div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row" name="upd-plusConcepto">
                         <div class="col-md-8 mb-3">
                             <label for="upd-idBebida">Bebida</label>
-                            <select name="upd-idBebida" id="upd-idBebida" class="form-control arrayIdBebidaUpd">
+                            <select name="upd-idComida[]" id="upd-idBebida" class="form-control arrayIdBebidaUpd">
                             <option></option>
                                 @foreach($bebidas as $bebida)
                                     <option value="{{ $bebida->id }}">{{ $bebida->nombre }}</option>
                                 @endforeach
                             </select>
-                            <div id="error_idBebida"></div>
+                            <div id="error_upd-idBebida"></div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="upd-cantidadBebida">Cantidad:</label>
-                            <input type="number" class="form-control arrayCantidadBebidaUpd" name="upd-cantidadBebida" id="upd-cantidadBebida" placeholder="Cantidad de producto" required>
-                            <div id="error_cantidadBebida"></div>
+                            <input type="number" class="form-control arrayCantidadBebidaUpd" name="upd-cantidadComida[]" id="upd-cantidadBebida" placeholder="Cantidad de producto" required>
+                            <div id="error_upd-cantidadBebida"></div>
                         </div>
+                    </div>
+                    <hr id="plus" class="my-4">
+                    <div id="upd-nuevoConcepto" class="col-md-12">
+                    <!-- <div class="form-row" id="nuevoConcepto"> -->
+                    </div>
+                    <div class="form-row">
+                        <input type="button" id="upd-masProducto" value="Agregar más consumo" class="btn btn-primary">
                     </div>
                 </form>
                 <!-- FIN UPDATE PRODUCTO -->
