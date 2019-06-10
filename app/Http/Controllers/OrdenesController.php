@@ -62,10 +62,12 @@ class OrdenesController extends Controller
                 $idCliente = $newCliente->id;
             }else{
                 $visitas    = Clientes::select('numVisitas')->where('id',$request->idCliente)->first();
-                $sumaVisitas = $visitas->numVisitas + 1;
-                $updCliente = Clientes::find($request->idCliente)->update([
-                    'numVisitas'    => $sumaVisitas
-                ]);
+                if( $visitas->numVisitas < 5 ){
+                    $sumaVisitas = $visitas->numVisitas + 1;
+                    $updCliente = Clientes::find($request->idCliente)->update([
+                        'numVisitas'    => $sumaVisitas
+                    ]);
+                }
                 $idCliente = $request->idCliente;
             }
             $newOrden = Ordenes::create([
@@ -167,6 +169,13 @@ class OrdenesController extends Controller
                         ]);
                         break;
                     case 'PAGADA':
+                        $visitasCliente =  Ordenes::with(['cliente'])->where('id',$id)->first();
+                        //dd($visitasCliente->cliente);
+                        if( $visitasCliente->cliente->numVisitas == 5 ){
+                            $updVisitas = Clientes::find($visitasCliente->cliente->id)->update([
+                                'numVisitas'    => 0
+                            ]);
+                        }
                         $updOrden = Ordenes::find($id)->update([
                             'estatusOrden'      => $request->estatusOrden
                         ]);

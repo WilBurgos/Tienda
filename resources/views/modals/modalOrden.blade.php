@@ -8,6 +8,12 @@
                 </button>
             </div>
             <div class="modal-body" id="modal-body">
+                <div class="jumbotron jumbotron-fluid" id="comidaGratis">
+                    <div class="container">
+                        <h1 class="display-4">¡Comida gratis!</h1>
+                        <p class="lead">El cliente acumuló su quinta visita, lo cual se le hace válido su orden gratis.</p>
+                    </div>
+                </div>
                 <!-- SAVE PRODUCTO -->
                 <form id="formNewOrden" class="needs-validation" novalidate>
                     <div class="form-row">
@@ -96,7 +102,7 @@
                 <!-- FIN SAVE PRODUCTO -->
                 <!-- UPDATE PRODUCTO -->
                 <form id="formUpdateOrden" class="needs-validation" novalidate>
-                    <div class="form-row">
+                    <div class="form-row" id="div-verCuenta">
                         <div class="col-md-4 mb-3" style="display:none;">
                             <label for="idOrden">id</label>
                             <input type="text" class="form-control" id="idOrden" placeholder="idOrden" required>
@@ -153,10 +159,15 @@
                             </select>
                             <div id="error_upd-idComida"></div>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-2 mb-3">
                             <label for="upd-cantidadComida">Cantidad:</label>
                             <input type="number" class="form-control arrayCantidadComidaUpd" name="upd-cantidadComida[]" id="upd-cantidadComida" placeholder="Cantidad de producto" required>
                             <div id="error_upd-cantidadComida"></div>
+                        </div>
+                        <div class="col-md-2 mb-3" id="div-totalComidas">
+                            <label for="upd-totalComidas">total</label>
+                            <input type="number" class="form-control arrayCantidadComidaUpd" name="upd-totalComidas" id="upd-totalComidas" placeholder="Total" disabled>
+                            <div id="error_upd-totalComidas"></div>
                         </div>
                     </div>
                     <div class="form-row" name="upd-plusConcepto">
@@ -170,15 +181,30 @@
                             </select>
                             <div id="error_upd-idBebida"></div>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-2 mb-3">
                             <label for="upd-cantidadBebida">Cantidad:</label>
                             <input type="number" class="form-control arrayCantidadBebidaUpd" name="upd-cantidadComida[]" id="upd-cantidadBebida" placeholder="Cantidad de producto" required>
                             <div id="error_upd-cantidadBebida"></div>
                         </div>
+                        <div class="col-md-2 mb-3" id="div-totalBebidas">
+                            <label for="upd-totalBebidas">total</label>
+                            <input type="number" class="form-control arrayCantidadComidaUpd" name="upd-totalBebidas" id="upd-totalBebidas" placeholder="Total" disabled>
+                            <div id="error_upd-totalBebidas"></div>
+                        </div>
                     </div>
                     <hr id="plus" class="my-4">
+                    
                     <div id="upd-nuevoConcepto" class="col-md-12">
                     <!-- <div class="form-row" id="nuevoConcepto"> -->
+                    </div>
+                    <div class="form-row" id="div-totalTodo">
+                        <div class="col-md-10 mb-3">
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="upd-totalTodo">Total a pagar:</label>
+                            <input type="number" class="form-control arrayCantidadComidaUpd" name="upd-totalTodo" id="upd-totalTodo" placeholder="Total" disabled>
+                            <div id="error_upd-totalTodo"></div>
+                        </div>
                     </div>
                     <div class="form-row">
                         <input type="button" id="upd-masProducto" value="Agregar más consumo" class="btn btn-primary">
@@ -190,6 +216,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModal">Cerrar</button>
                 <button type="button" class="btn btn-primary" type="submit" id="guardarOrden">Guardar</button>
                 <button type="button" class="btn btn-primary" type="submit" id="updateOrden">Guardar</button>
+                <!--<button type="button" class="btn btn-primary" type="submit" id="imprimirOrden">Imprimir</button>-->
             </div>
         </div>
     </div>

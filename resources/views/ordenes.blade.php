@@ -34,6 +34,7 @@
     <table id="tableOrdenes" style="text-align: center;">
     </table>
     @include('modals.modalOrden')
+    @include('modals.modalCuenta')
 <!-- </div> -->
 
 @endsection
@@ -49,6 +50,7 @@
         var RouteStoreOrden     = "{!! route('ordenes.store') !!}";
         var RouteCerrarOrden    = "{!! route('ordenes.cerrarOrden') !!}";
         var modal               = $('#modalOrden');
+        var modalCuenta         = $('#modalCuenta');
         var divNuevo            = '<div style="position:relative; margin-top:10px; margin-bottom:10px; float:left!important;"><button class="btn btn-secondary" type="button" id="NuevaOrden">Nueva Orden</button></div>';
 
         $(document).ready(function(){
@@ -137,8 +139,9 @@
                     break;
                 case 'CERRADA':
                     ver = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Ver orden" id="edit"><i class="far fa-eye"></i></button>&nbsp;';
+                    impCuenta = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Imprimir cuenta" id="impCuenta"><i class="fas fa-list-ol"></i></button>&nbsp;';
                     pagada = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Pagar cuenta" id="cuentaPagada"><i class="fas fa-money-bill-alt"></i></button>&nbsp;';
-                    return [ver,pagada].join('');
+                    return [ver,impCuenta,pagada].join('');
                 case 'PAGADA':
                     ver = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Ver orden" id="edit"><i class="far fa-eye"></i></button>&nbsp;';
                     return [ver].join('');
@@ -150,17 +153,28 @@
 
         window.operateEvents = {
             'click #edit': function (e, value, row, index) {
-                console.log(row)
+                //console.log(row)
                 e.preventDefault();
                 limpiarModal();
-                tituloModal.append('Actualizar orden');
+                if( row.estatusOrden == "CERRADA" || row.estatusOrden == "PAGADA" ){
+                    tituloModal.append('Ver orden');
+                    $('#updateOrden').hide();
+                }else{
+                    tituloModal.append('Actualizar orden');
+                    $('#updateOrden').show();
+                }
                 $('#formUpdateOrden').show();
                 $('#formNewOrden').hide();
                 $('#formUpdateOrden').removeClass('was-validated');
                 $('.form-control').removeClass('is-valid');
                 $('.form-control').removeClass('is-invalid');
-                $('#updateOrden').show();
+                $('#div-verCuenta').show();
+                $('#div-totalComidas').hide();
+                $('#div-totalBebidas').hide();
+                $('#div-totalTodo').hide();
+                $('#comidaGratis').hide();
                 $('#guardarOrden').hide();
+                $('#imprimirOrden').hide();
                 $('#upd-nuevoConcepto').empty()
                 $('#formUpdateOrden')[0].reset();
                 // --------------------------------------------- //
@@ -174,11 +188,10 @@
                 $('#upd-cantidadComida').val(row.orden_alimento[0].cantidad);
                 $('#upd-idBebida').val(row.orden_alimento[1].alimento.id);
                 $('#upd-cantidadBebida').val(row.orden_alimento[1].cantidad);
-                
-                
                     suma = 0
+                    console.log('lenght: '+row.orden_alimento.length)
                     div = (row.orden_alimento.length)/2
-                    // console.log(div)
+                     console.log('div: '+div)
                     apend = div/2
                     // console.log(apend)
                     if( apend >= 1){
@@ -186,23 +199,18 @@
                             $('#upd-masProducto').click()
                         }
                     }
+                    console.log(row.orden_alimento)
                     row.orden_alimento.forEach(function(element) {
                         if( suma >= 2 ){
                             if( element.alimento.tipoComida == "COMIDA" ){
                                 $('#upd-idComida-'+div).val(element.alimento.id);
                                 $('#upd-cantidadComida-'+div).val(element.cantidad);
-                                // if( row.estatusOrden == 'CERRADA' || row.estatusOrden == 'PAGADA'){
-                                //     $('#upd-idComida-'+div).attr('disabled',true)
-                                //     $('#upd-cantidadComida-'+div).attr('disabled',true)
-                                // }else{
-                                //     $('#upd-idComida-'+div).attr('disabled',false)
-                                //     $('#upd-cantidadComida-'+div).attr('disabled',false)
-                                // }
+                                $('#div-totalComidas-'+div).hide()
                             }else{
                                 if( element.alimento.tipoComida == "BEBIDA" ){
                                     $('#upd-idBebida-'+div).val(element.alimento.id);
                                     $('#upd-cantidadBebida-'+div).val(element.cantidad);
-                                    
+                                    $('#div-totalBebidas-'+div).hide()
                                 }
                             }
                             if( row.estatusOrden == 'CERRADA' || row.estatusOrden == 'PAGADA'){
@@ -263,14 +271,14 @@
                     estatusOrden:       'CERRADA',
                     consumo:     row.orden_alimento,
                 };
-                console.log(dataString)
+                //console.log(dataString)
                 $.ajax({
                     type: 'PUT',
                     url: RouteIndexOrden+'/'+row.id,
                     data: dataString,
                     dataType: 'json',
                     success: function(data){
-                        console.log(data)
+                        //console.log(data)
                         // modal.modal('hide');
                         table.bootstrapTable('refresh');
                     },
@@ -280,16 +288,116 @@
                     }
                 });
             },
+            'click #impCuenta': function(e,value,row,index){
+                e.preventDefault();
+                //console.log(row)
+                limpiarModal();
+                tituloModal.append('Imprimir orden');
+                $('#formUpdateOrden').show();
+                $('#formNewOrden').hide();
+                $('#formUpdateOrden').removeClass('was-validated');
+                $('.form-control').removeClass('is-valid');
+                $('.form-control').removeClass('is-invalid');
+                $('#div-verCuenta').hide();
+                $('#div-totalComidas').show();
+                $('#div-totalBebidas').show();
+                $('#div-totalTodo').show();
+                $('#imprimirOrden').show();
+                if(row.cliente.numVisitas = 5){
+                    $('#comidaGratis').show();
+                    $('#imprimirOrden').hide();
+                    $('#formUpdateOrden').hide();
+                }else{
+                    $('#comidaGratis').hide();
+                }
+                $('#updateOrden').hide();
+                $('#guardarOrden').hide();
+                
+                $('#upd-nuevoConcepto').empty();
+                $('#formUpdateOrden')[0].reset();
+                // --------------------------------------------- //
+                $('#idOrden').val(row.id);
+                $('#upd-idCliente').val(row.cliente.id);
+                $('#upd-numeroMesa').val(row.numMesa);
+                $('#upd-nombre').val(row.cliente.nombre);
+                $('#upd-primerAp').val(row.cliente.primerAp);
+                $('#upd-segundoAp').val(row.cliente.segundoAp);
+                $('#upd-idComida').val(row.orden_alimento[0].alimento.id);
+                $('#upd-cantidadComida').val(row.orden_alimento[0].cantidad);
+                $('#upd-totalComidas').val( row.orden_alimento[0].alimento.precio*row.orden_alimento[0].cantidad )
+                $('#upd-idBebida').val(row.orden_alimento[1].alimento.id);
+                $('#upd-cantidadBebida').val(row.orden_alimento[1].cantidad);
+                $('#upd-totalBebidas').val( row.orden_alimento[1].alimento.precio*row.orden_alimento[1].cantidad )
+                totalTodoDosPrimeros = (row.orden_alimento[0].alimento.precio*row.orden_alimento[0].cantidad)+(row.orden_alimento[1].alimento.precio*row.orden_alimento[1].cantidad)
+                    suma = 0
+                    div = (row.orden_alimento.length)/2
+                    apend = div/2
+                    if( apend >= 1){
+                        for (let index = 0; index < apend; index++) {
+                            $('#upd-masProducto').click()
+                        }
+                    }
+                    totalTodo = 0
+                    row.orden_alimento.forEach(function(element) {
+                        if( suma >= 2 ){
+                            if( element.alimento.tipoComida == "COMIDA" ){
+                                $('#upd-idComida-'+div).val(element.alimento.id);
+                                $('#upd-cantidadComida-'+div).val(element.cantidad);
+                                $('#upd-totalComidas-'+div).val( element.alimento.precio*element.cantidad )
+                                totalTodo = totalTodo + element.alimento.precio*element.cantidad;
+                            }else{
+                                if( element.alimento.tipoComida == "BEBIDA" ){
+                                    $('#upd-idBebida-'+div).val(element.alimento.id);
+                                    $('#upd-cantidadBebida-'+div).val(element.cantidad);
+                                    $('#upd-totalBebidas-'+div).val( element.alimento.precio*element.cantidad )
+                                    totalTodo = totalTodo + element.alimento.precio*element.cantidad;
+                                }
+                            }
+                            if( row.estatusOrden == 'CERRADA' || row.estatusOrden == 'PAGADA'){
+                                $('#upd-idComida-'+div).attr('disabled',true)
+                                $('#upd-cantidadComida-'+div).attr('disabled',true)
+                                $('#upd-idBebida-'+div).attr('disabled',true)
+                                $('#upd-cantidadBebida-'+div).attr('disabled',true)
+                                $('#upd-borrarAli-'+div).hide()
+                                $('#div-totalComidas-'+div).show()
+                                $('#div-totalBebidas-'+div).show()
+                            }else{
+                                $('#upd-idComida-'+div).attr('disabled',false)
+                                $('#upd-cantidadComida-'+div).attr('disabled',false)
+                                $('#upd-idBebida-'+div).attr('disabled',false)
+                                $('#upd-cantidadBebida-'+div).attr('disabled',false)
+                                $('#upd-borrarAli-'+div).show()
+                            }
+                        }
+                        suma=suma+1
+                    });
+                if( row.estatusOrden == 'CERRADA' || row.estatusOrden == 'PAGADA'){
+                    $('#upd-numeroMesa,#upd-nombre,#upd-primerAp,#upd-segundoAp,#upd-idComida,#upd-cantidadComida,#upd-idBebida,#upd-cantidadBebida').attr('disabled',true)
+                    $('#upd-masProducto').hide();
+                }else{
+                    $('#upd-numeroMesa,#upd-nombre,#upd-primerAp,#upd-segundoAp,#upd-idComida,#upd-cantidadComida,#upd-idBebida,#upd-cantidadBebida').attr('disabled',false)
+                    $('#upd-masProducto').show();
+                }
+                $('#upd-idCliente,#upd-newCliente').attr('disabled',true)
+                $('#upd-totalTodo').val( totalTodoDosPrimeros+totalTodo );
+                modal.modal('show');
+
+            },
             'click #cuentaPagada': function(e, value, row, index) {
                 e.preventDefault();
                 console.log('PAGADA')
                 //console.log(row)
+                if( row.cliente.numVisitas == 5 ){
+                    total = 0
+                }else{
+                    total = row.totalOrden
+                }
                 var dataString = {
                     estatusOrden:       'PAGADA',
-                    totalOrden:         row.totalOrden
+                    totalOrden:         total
                     //consumo:     row.orden_alimento,
                 };
-                console.log(dataString)
+                //console.log(dataString)
                 $.ajax({
                     type: 'PUT',
                     url: RouteIndexOrden+'/'+row.id,
@@ -319,6 +427,8 @@
             $('.form-control').removeClass('is-invalid');
             $('#guardarOrden').show();
             $('#updateOrden').hide();
+            $('#comidaGratis').hide();
+            $('#imprimirOrden').hide();
             $('#nuevoConcepto').empty()
             $('#formNewOrden')[0].reset();
             //$('.select2').select2();
@@ -489,10 +599,15 @@
                         concepto = concepto + '</select>'
                         concepto = concepto + '<div id="error_upd-idComida-'+num+'"></div>'
                     concepto = concepto + '</div>'
-                    concepto = concepto + '<div class="col-md-4 mb-3">'
+                    concepto = concepto + '<div class="col-md-2 mb-3">'
                         concepto = concepto + '<label for="upd-cantidadComida-'+num+'">Cantidad:</label>'
                         concepto = concepto + '<input type="number" class="form-control arrayCantidadComidaUpd" name="upd-cantidadComida[]" id="upd-cantidadComida-'+num+'" placeholder="Cantidad de producto" required>'
                         concepto = concepto + '<div id="error_upd-cantidadComida-'+num+'"></div>'
+                    concepto = concepto + '</div>'
+                    concepto = concepto + '<div class="col-md-2 mb-3" id="div-totalComidas-'+num+'" style="display:none;">'
+                        concepto = concepto + '<label for="upd-totalComidas-'+num+'">total</label>'
+                        concepto = concepto + '<input type="number" class="form-control arrayCantidadComidaUpd" name="upd-totalComidas[]" id="upd-totalComidas-'+num+'" placeholder="Total" disabled>'
+                        concepto = concepto + '<div id="error_upd-totalComidas-'+num+'"></div>'
                     concepto = concepto + '</div>'
                 concepto = concepto + '</div>'
                 concepto = concepto + '<div class="form-row" name="upd-plusConcepto">'
@@ -506,10 +621,15 @@
                         concepto = concepto + '</select>'
                         concepto = concepto + '<div id="error_upd-idBebida-'+num+'"></div>'
                     concepto = concepto + '</div>'
-                    concepto = concepto + '<div class="col-md-4 mb-3">'
+                    concepto = concepto + '<div class="col-md-2 mb-3">'
                         concepto = concepto + '<label for="upd-cantidadBebida-'+num+'">Cantidad:</label>'
                         concepto = concepto + '<input type="number" class="form-control arrayCantidadBebidaUpd" name="upd-cantidadComida[]" id="upd-cantidadBebida-'+num+'" placeholder="Cantidad de producto" required>'
                         concepto = concepto + '<div id="error_upd-cantidadBebida-'+num+'"></div>'
+                    concepto = concepto + '</div>'
+                    concepto = concepto + '<div class="col-md-2 mb-3" id="div-totalBebidas-'+num+'" style="display:none;">'
+                        concepto = concepto + '<label for="upd-totalBebidas-'+num+'">total</label>'
+                        concepto = concepto + '<input type="number" class="form-control arrayCantidadComidaUpd" name="upd-totalBebidas[]" id="upd-totalBebidas-'+num+'" placeholder="Total" disabled>'
+                        concepto = concepto + '<div id="error_upd-totalBebidas-'+num+'"></div>'
                     concepto = concepto + '</div>'
                 concepto = concepto + '</div>'
                 concepto = concepto + ' <button type="button" id="upd-borrarAli-'+num+'" class="btn btn-danger" onclick="borrar(\'#upd-nuevo'+num+'\')"><i class="fas fa-eraser"></i></button><hr class="my-1">';
