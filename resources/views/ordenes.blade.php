@@ -34,7 +34,7 @@
     <table id="tableOrdenes" style="text-align: center;">
     </table>
     @include('modals.modalOrden')
-    @include('modals.modalCuenta')
+    {{-- @include('modals.modalCuenta') --}}
 <!-- </div> -->
 
 @endsection
@@ -303,7 +303,7 @@
                 $('#div-totalBebidas').show();
                 $('#div-totalTodo').show();
                 $('#imprimirOrden').show();
-                if(row.cliente.numVisitas = 5){
+                if(row.cliente.numVisitas == 5){
                     $('#comidaGratis').show();
                     $('#imprimirOrden').hide();
                     $('#formUpdateOrden').hide();

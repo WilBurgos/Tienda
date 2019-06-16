@@ -98,7 +98,14 @@ $(document).ready(function () {
                     title: 'Mesero',
                     sortable: 'true',
                 }, {                    
-                    field: 'totalVenta',
+                    // field: 'totalVenta',
+                    formatter: (value, row, index, field) => {
+                        if(row.totalVenta == 0){
+                            return 'Comida gratis por su quinta visita. $'+row.totalVenta
+                        } else {
+                            return '$'+row.totalVenta;
+                        }			
+                    },
                     title: 'Total de la orden',
                     sortable: 'true',
                 },/*{

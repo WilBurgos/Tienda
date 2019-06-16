@@ -40,7 +40,7 @@ class ClientesTableSeeder extends Seeder
         		'nombre'		=> 'GREGORIO',
         		'primerAp'		=> 'RIVERA',
         		'segundoAp'     => 'LANDA',
-                'numVisitas'	=> 5
+                'numVisitas'	=> 4
             ],
             [
         		'nombre'		=> 'GABRIELA',
