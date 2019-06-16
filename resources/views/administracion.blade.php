@@ -102,10 +102,10 @@
             edit = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Editar Usuario" id="edit"><i class="fa fa-edit" aria-hidden="true"></i></button>&nbsp;';
             if(row.estatus=='ACTIVO'){
                 baja = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de baja" id="bajaUsuario"><i class="fa fa-arrow-down"></i></button>&nbsp;';
-                return [edit,baja].join('');
+                return [edit].join('');
             }else{
                 alta = '<button class="btn btn-dark btn-sm edit" data-toggle="tooltip" data-placement="top" title="Dar de alta" id="altaUsuario"><i class="fa fa-arrow-up"></i></button>&nbsp;&nbsp;';
-                return [edit,alta].join('');
+                return [edit].join('');
             }
         }
 
