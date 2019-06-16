@@ -81,6 +81,10 @@
                     title: 'Número de mesa',
                     sortable: 'true',
                 }, {                    
+                    field: 'mesero.name',
+                    title: 'Atiende',
+                    sortable: 'true',
+                },{                    
                     field: 'estatusOrden',
                     title: 'Estatus de la orden',
                     sortable: 'true',
@@ -153,7 +157,7 @@
 
         window.operateEvents = {
             'click #edit': function (e, value, row, index) {
-                //console.log(row)
+                // console.log(row)
                 e.preventDefault();
                 limpiarModal();
                 if( row.estatusOrden == "CERRADA" || row.estatusOrden == "PAGADA" ){
