@@ -149,6 +149,12 @@
             </div>
         </div>
 
+    </div>
+
+    <hr>
+
+    <div class="row justify-content-center">
+
         <div class="col-md-4">
             <div class="card">
             	<a href="{{ route('producto.index') }}">
@@ -159,6 +165,19 @@
 	                    <img src="{{ asset('imagenes/Productos.jpg') }}" width="100%" style="height: 218px;">
 	                </div>
                 </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+            	<a href="{{ route('clientes.index') }}">
+	                <div class="card-header">
+	                	CLIENTES
+	                </div>
+	                <div class="card-body">
+	                    <img src="{{ asset('imagenes/clientes.jpg') }}" width="100%" style="height: 218px;">
+	                </div>
+            	</a>
             </div>
         </div>
         <!--
